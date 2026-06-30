@@ -1,102 +1,100 @@
-import React, { useState } from 'react'
-import { Link } from "react-scroll";
-import { FiMenu } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
-import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import { navLinksdata } from '../../constants';
+'use client'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-scroll'
+import { FiMenu, FiX } from 'react-icons/fi'
+
+const NAV_LINKS = [
+  { title: 'About', to: 'about' },
+  { title: 'Technologies', to: 'features' },
+  { title: 'Work', to: 'projects' },
+  { title: 'Resume', to: 'resume' },
+  { title: 'Contact', to: 'contact' },
+]
 
 const Navbar = () => {
-  const [showMenu, setShowMenu]=useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <div className="w-full h-24 sticky top-0 z-50 bg-bodyColor mx-auto flex justify-between items-center font-titleFont border-b-[1px] border-b-gray-600">
-      <div>
-        {/* <img src={logo} alt="logo" /> */}
-      </div>
-      <div>
-        <ul className="hidden mdl:inline-flex items-center gap-6 lg:gap-10">
-          {navLinksdata.map(({ _id, title, link }) => (
-            <li
-              className="text-base font-normal text-gray-400 tracking-wide cursor-pointer hover:text-designColor duration-300"
-              key={_id}
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-black/[0.06]' : 'bg-transparent'}`}>
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link to="home" smooth duration={500} className="text-lightText font-black text-xl tracking-tight cursor-pointer select-none">
+          B<span className="text-designColor">.</span>
+        </Link>
+
+        <div className="hidden mdl:flex items-center gap-8">
+          {NAV_LINKS.map(l => (
+            <Link
+              key={l.to}
+              to={l.to}
+              smooth
+              duration={500}
+              offset={-64}
+              activeClass="text-lightText"
+              spy
+              className="text-mutedText hover:text-lightText text-sm font-medium tracking-wide cursor-pointer transition-colors duration-200"
             >
-              <Link
-                activeClass="active"
-                to={link}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-              >
-                {title}
-              </Link>
-            </li>
+              {l.title}
+            </Link>
           ))}
-        </ul>
-        <span
-          onClick={() => setShowMenu(!showMenu)}
-          className="text-xl mdl:hidden bg-black w-10 h-10 inline-flex items-center justify-center rounded-full text-designColor cursor-pointer"
+        </div>
+
+        <div className="hidden mdl:block">
+          <Link
+            to="contact"
+            smooth
+            duration={500}
+            offset={-64}
+            className="px-5 py-2 text-sm font-semibold text-designColor border border-designColor/30 rounded-lg hover:bg-designColor/10 transition-all duration-200 cursor-pointer"
+          >
+            Let's Talk
+          </Link>
+        </div>
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="mdl:hidden text-mutedText hover:text-lightText transition-colors p-1"
+          aria-label="Toggle menu"
         >
-          <FiMenu />
-        </span>
-        {showMenu && (
-          <div className="w-[80%] h-screen overflow-scroll absolute top-0 left-0 bg-gray-900 p-4 scrollbar-hide">
-            <div className="flex flex-col gap-8 py-2 relative">
-              <div>
-                {/* <img className="w-32" src={logo} alt="logo" /> */}
-                <p className="text-sm text-gray-400 mt-2">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Earum soluta perspiciatis molestias enim cum repellat, magnam
-                  exercitationem distinctio aliquid nam.
-                </p>
-              </div>
-              <ul className="flex flex-col gap-4">
-                {navLinksdata.map((item) => (
-                  <li
-                    key={item._id}
-                    className="text-base font-normal text-gray-400 tracking-wide cursor-pointer hover:text-designColor duration-300"
-                  >
-                    <Link
-                      onClick={() => setShowMenu(false)}
-                      activeClass="active"
-                      to={item.link}
-                      spy={true}
-                      smooth={true}
-                      offset={-70}
-                      duration={500}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-col gap-4">
-                <h2 className="text-base uppercase font-titleFont mb-4">
-                  Find me in
-                </h2>
-                <div className="flex gap-4">
-                  <span className="bannerIcon">
-                    <FaFacebookF />
-                  </span>
-                  <span className="bannerIcon">
-                    <FaTwitter />
-                  </span>
-                  <span className="bannerIcon">
-                    <FaLinkedinIn />
-                  </span>
-                </div>
-              </div>
-              <span
-                onClick={() => setShowMenu(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-designColor duration-300 text-2xl cursor-pointer"
-              >
-                <MdClose />
-              </span>
-            </div>
-          </div>
-        )}
+          {open ? <FiX size={22} /> : <FiMenu size={22} />}
+        </button>
       </div>
-    </div>
-  );
+
+      {open && (
+        <div className="mdl:hidden bg-white/95 backdrop-blur-xl border-t border-black/[0.06] px-6 py-5 flex flex-col gap-1">
+          {NAV_LINKS.map(l => (
+            <Link
+              key={l.to}
+              to={l.to}
+              smooth
+              duration={500}
+              offset={-64}
+              onClick={() => setOpen(false)}
+              className="text-mutedText hover:text-lightText text-sm font-medium py-3 cursor-pointer transition-colors border-b border-black/[0.04] last:border-0"
+            >
+              {l.title}
+            </Link>
+          ))}
+          <Link
+            to="contact"
+            smooth
+            duration={500}
+            offset={-64}
+            onClick={() => setOpen(false)}
+            className="mt-3 text-center px-5 py-2.5 text-sm font-semibold text-designColor border border-designColor/30 rounded-lg cursor-pointer"
+          >
+            Let's Talk
+          </Link>
+        </div>
+      )}
+    </nav>
+  )
 }
 
 export default Navbar

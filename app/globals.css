@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #FFFFFF;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: rgba(46, 168, 138, 0.20);
+    color: #111827;
+  }
+}
+
+@layer components {
+  .bannerIcon {
+    @apply w-10 h-10 flex items-center justify-center rounded-xl border border-black/10 text-mutedText hover:text-lightText hover:border-black/20 transition-all duration-200 cursor-pointer text-base;
+  }
+  .section-divider {
+    @apply border-t border-black/[0.08];
+  }
+  .card {
+    @apply bg-cardColor border border-black/[0.08] rounded-xl;
+  }
+  .tag {
+    @apply px-3 py-1 text-xs font-medium rounded-md border border-designColor/20 text-designColor bg-designColor/5;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fade mask for scrolling ticker */
+.fade-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}

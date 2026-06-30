@@ -1,105 +1,86 @@
-import React, { useEffect, useState } from "react";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
-import {
-  FaLinkedinIn,
-  FaReact,
-  FaGithub,
-  FaWhatsapp,
-  FaEnvelope,
-} from "react-icons/fa";
-import { SiMongodb, SiExpress, SiTailwindcss, SiFigma, SiNextdotjs } from "react-icons/si";
+'use client'
+import { useTypewriter, Cursor } from 'react-simple-typewriter'
+import { FaGithub, FaLinkedinIn, FaWhatsapp, FaEnvelope } from 'react-icons/fa'
+import { Link } from 'react-scroll'
+
+const SOCIALS = [
+  { Icon: FaGithub,     href: 'https://github.com/Bubalan0203',       label: 'GitHub' },
+  { Icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/bubalans', label: 'LinkedIn' },
+  { Icon: FaWhatsapp,   href: 'https://wa.me/918667859174',           label: 'WhatsApp' },
+  { Icon: FaEnvelope,   href: 'mailto:bubalan28@gmail.com',           label: 'Email' },
+]
 
 const LeftBanner = () => {
   const [text] = useTypewriter({
-    words: ["Professional Coder.", "Full Stack Developer.", "UI Designer."],
+    words: ['Full Stack Developer.', 'MERN Stack Engineer.', 'UI Designer.', 'Problem Solver.'],
     loop: true,
-    typeSpeed: 20,
-    deleteSpeed: 10,
-    delaySpeed: 2000,
-  });
-
-  const [scrollDirection, setScrollDirection] = useState("up");
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
-        setScrollDirection("down");
-      } else {
-        setScrollDirection("up");
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  const getAnimationClass = (index) => {
-    const delay = index * 100;
-    return `transition-all duration-500 ease-in-out delay-[${delay}ms] ${
-      scrollDirection === "down"
-        ? "translate-y-10 opacity-0"
-        : "translate-y-0 opacity-100"
-    }`;
-  };
+    typeSpeed: 40,
+    deleteSpeed: 20,
+    delaySpeed: 2500,
+  })
 
   return (
-    <div className="w-full lgl:w-1/2 flex flex-col gap-20">
-      <div className="flex flex-col gap-5">
-        <h4 className={`text-lg font-normal ${getAnimationClass(0)}`}>
-          Hello Everyone, I am
-        </h4>
-        <h1 className={`text-6xl font-bold text-white ${getAnimationClass(1)}`}>
-          <span className="text-designColor capitalize">Bubalan</span>
-        </h1>
-        <h2 className={`text-4xl font-bold text-white ${getAnimationClass(2)}`}>
-          a <span>{text}</span>
-          <Cursor
-            cursorBlinking="false"
-            cursorStyle="|"
-            cursorColor="#ff014f"
-          />
-        </h2>
-        <p className={`text-base font-bodyFont leading-6 tracking-wide ${getAnimationClass(3)}`}>
-          I'm a passionate Software Systems student with a hunger for learning
-          and a knack for problem solving. I strive to create impactful
-          solutions that resonate in the digital world.
-        </p>
+    <div className="max-w-6xl mx-auto px-6 w-full">
+      <div className="flex items-center gap-3 mb-8">
+        <span className="w-8 h-px bg-designColor" />
+        <span className="text-designColor text-xs font-semibold tracking-[0.2em] uppercase">
+          Available for Work
+        </span>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-6 lgl:gap-0 justify-between">
-        <div className={`${getAnimationClass(4)}`}>
-          <h2 className="text-base uppercase font-titleFont mb-4">Find me in</h2>
-          <div className="flex gap-4">
-            <a href="https://github.com/Bubalan0203" target="_blank" rel="noopener noreferrer">
-              <span className="bannerIcon"><FaGithub /></span>
-            </a>
-            <a href="https://wa.me/918667859174" target="_blank" rel="noopener noreferrer">
-              <span className="bannerIcon"><FaWhatsapp /></span>
-            </a>
-            <a href="mailto:bubalan28@gmail.com" target="_blank" rel="noopener noreferrer">
-              <span className="bannerIcon"><FaEnvelope /></span>
-            </a>
-            <a href="https://www.linkedin.com/in/bubalans" target="_blank" rel="noopener noreferrer">
-              <span className="bannerIcon"><FaLinkedinIn /></span>
-            </a>
-          </div>
-        </div>
+      <h1
+        className="font-black text-lightText leading-[0.92] tracking-tight mb-6"
+        style={{ fontSize: 'clamp(56px, 9vw, 108px)' }}
+      >
+        BUBALAN<br />
+        <span className="text-designColor">S.</span>
+      </h1>
 
-        <div className={`${getAnimationClass(5)}`}>
-          <h2 className="text-base uppercase font-titleFont mb-4">Best Skill On</h2>
-          <div className="flex gap-4">
-            <span className="bannerIcon"><SiMongodb /></span>
-            <span className="bannerIcon"><SiExpress /></span>
-            <span className="bannerIcon"><FaReact /></span>
-            <span className="bannerIcon"><SiNextdotjs /></span>
-          </div>
-        </div>
+      <p className="font-semibold text-mutedText mb-4" style={{ fontSize: 'clamp(18px, 2.5vw, 26px)' }}>
+        <span className="text-lightText">{text}</span>
+        <Cursor cursorStyle="|" cursorColor="#2EA88A" />
+      </p>
+
+      <p className="text-mutedText text-base max-w-xl leading-relaxed mb-10">
+        MSc Software Systems student building AI-powered, scalable web apps.
+        Passionate about clean code and impactful user experiences.
+      </p>
+
+      <div className="flex flex-wrap items-center gap-4 mb-10">
+        <Link
+          to="projects"
+          smooth
+          duration={500}
+          offset={-64}
+          className="px-7 py-3 bg-designColor text-white text-sm font-bold rounded-xl hover:bg-designColor/90 transition-all duration-200 cursor-pointer"
+        >
+          View Work →
+        </Link>
+        <a
+          href="/Bubalan.pdf"
+          download
+          className="px-7 py-3 border border-black/[0.12] text-lightText text-sm font-semibold rounded-xl hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200"
+        >
+          Download Resume
+        </a>
+      </div>
+
+      <div className="flex items-center gap-3">
+        {SOCIALS.map(({ Icon, href, label }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className="bannerIcon"
+          >
+            <Icon size={15} />
+          </a>
+        ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LeftBanner;
+export default LeftBanner

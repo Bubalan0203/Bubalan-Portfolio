@@ -1,84 +1,94 @@
-import React from 'react';
-import Title from '../layouts/Title';
-import { projectOne, projectTwo, projectThree ,projectFour,projectFive,projectSix,projectSeven,projectEight,projectNine} from "../../assets/index"; // Replace with actual screenshots as needed
-import ProjectsCard from './ProjectsCard';
+'use client'
+import Title from '../layouts/Title'
+import { projectOne, projectTwo, projectThree, projectFour, projectFive, projectSix, projectSeven, projectEight, projectNine } from '../../assets/index'
+import ProjectsCard from './ProjectsCard'
 
-const Projects = () => {
-  return (
-    <section id="projects" className="w-full py-20 border-b-black">
-      <div className="flex justify-center items-center text-center">
-        <Title
-          title="VISIT MY PORTFOLIO AND KEEP YOUR FEEDBACK"
-          des="My Projects"
-        />
+const PROJECTS = [
+  {
+    title: 'CodeCraft – AI-Powered No-Code UI Builder',
+    des: 'AI-based no-code platform using OpenAI, React, and Firebase. Enables code generation from prompts with Razorpay integration and real-time previews.',
+    src: projectSeven,
+    tech: ['React', 'Firebase', 'OpenAI', 'Razorpay'],
+  },
+  {
+    title: 'FlavOr – AI-Powered Food Discovery App',
+    des: 'Multilingual AI food app built with React Native and OpenRouter. Users get recipes via ingredients, images, or voice with YouTube video suggestions.',
+    src: projectEight,
+    tech: ['React Native', 'OpenRouter', 'AI'],
+  },
+  {
+    title: 'TIA – Centralized Operations Hub',
+    des: 'MERN-based enterprise suite for 10+ departments. Unified CRM, chat, and reports with role-based access and real-time AWS sync.',
+    src: projectNine,
+    tech: ['MERN', 'AWS', 'Socket.io'],
+  },
+  {
+    title: 'Air Drawing App',
+    des: 'Draw in real-time using webcam and hand-tracking. Features gesture detection, undo/redo, shape recognition, and voice commands.',
+    src: projectOne,
+    tech: ['OpenCV', 'MediaPipe', 'Python'],
+  },
+  {
+    title: 'Eats.com – Food Ordering Platform',
+    des: 'Food ordering platform with dynamic menus, cart, order history, and authentication built with the MERN stack.',
+    src: projectTwo,
+    tech: ['React', 'Node.js', 'MongoDB'],
+  },
+  {
+    title: 'Investment Suggestion Chatbot',
+    des: 'Chatbot providing investment advice using Mistral LLM, built with React, Clerk auth, and MongoDB Atlas.',
+    src: projectThree,
+    tech: ['React', 'Mistral LLM', 'Clerk', 'MongoDB'],
+  },
+  {
+    title: 'Shortest Path Visualizer',
+    des: "Interactive Dijkstra's algorithm visualizer built in React to help understand graph theory and pathfinding logic.",
+    src: projectFour,
+    tech: ['React', 'Algorithms'],
+  },
+  {
+    title: 'TIA Profit & Loss Calculator',
+    des: 'MERN app managing transaction-based investment data with real-time P&L analytics and a modern secure dashboard.',
+    src: projectFive,
+    tech: ['MERN', 'Chart.js'],
+  },
+  {
+    title: 'Crowd Catch Cost Analysis',
+    des: 'MERN stack app analyzing cost efficiency and impact of crowd-gathering events using visual reports and financial projections.',
+    src: projectSix,
+    tech: ['MERN', 'Data Viz'],
+  },
+]
+
+const Projects = () => (
+  <section id="projects" className="py-24 border-t border-black/[0.08]">
+    <div className="max-w-6xl mx-auto px-6">
+      <Title title="Selected Work" des="My Projects" />
+
+      {/* Featured row: first project wide, second normal */}
+      <div className="grid grid-cols-1 lgl:grid-cols-3 gap-5 mb-5">
+        <div className="lgl:col-span-2">
+          <ProjectsCard {...PROJECTS[0]} />
+        </div>
+        <ProjectsCard {...PROJECTS[1]} />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 xl:gap-14">
 
-  {/* NEW PROJECT 1 */}
-  <ProjectsCard
-    title="CodeCraft – AI-Powered No-Code UI Builder"
-    des="Built an AI-based no-code platform using OpenAI, React, and Firebase. Enabled code generation from prompts with Razorpay integration and real-time previews."
-    src={projectSeven}
-  />
+      {/* Second row: third project wide */}
+      <div className="grid grid-cols-1 lgl:grid-cols-3 gap-5 mb-5">
+        <ProjectsCard {...PROJECTS[2]} />
+        <div className="lgl:col-span-2">
+          <ProjectsCard {...PROJECTS[3]} />
+        </div>
+      </div>
 
-  {/* NEW PROJECT 2 */}
-  <ProjectsCard
-    title="FlavOr – AI-Powered Food Discovery App"
-    des="A multilingual AI food app built with React Native and OpenRouter. Users get recipes via ingredients, images, or voice — with YouTube video suggestions."
-    src={projectEight}
-  />
+      {/* Rest: standard 3-col grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 gap-5">
+        {PROJECTS.slice(4).map((p, i) => (
+          <ProjectsCard key={i} {...p} />
+        ))}
+      </div>
+    </div>
+  </section>
+)
 
-  {/* NEW PROJECT 3 */}
-  <ProjectsCard
-    title="TIA – Centralized Operations Hub"
-    des="MERN-based enterprise suite for 10+ departments. Unified CRM, chat, and reports with role-based access and real-time AWS sync."
-    src={projectNine}
-  />
-
-  {/* EXISTING PROJECT 1 */}
-  <ProjectsCard
-    title="Air Drawing App"
-    des="Draw with your hand in real-time using webcam and hand-tracking. Features gesture detection, undo/redo, shape recognition, voice commands, and theme toggle."
-    src={projectOne}
-  />
-
-  {/* EXISTING PROJECT 2 */}
-  <ProjectsCard
-    title="Eats.com - Food Ordering Platform"
-    des="A food ordering platform with dynamic menus, cart, order history, and authentication. Built with React, Node.js, and MongoDB."
-    src={projectTwo}
-  />
-
-  {/* EXISTING PROJECT 3 */}
-  <ProjectsCard
-    title="Investment Suggestion Chatbot"
-    des="Chatbot that provides investment advice and feedback using Mistral LLM. Built with React, Clerk auth, and MongoDB Atlas."
-    src={projectThree}
-  />
-
-  {/* EXISTING PROJECT 4 */}
-  <ProjectsCard
-    title="Shortest Path Mapping (Dijkstra)"
-    des="Interactive pathfinding visualizer using Dijkstra’s algorithm. Built in React to help users understand graph theory and path logic."
-    src={projectFour}
-  />
-
-  {/* EXISTING PROJECT 5 */}
-  <ProjectsCard
-    title="TIA Profit & Loss Calculator"
-    des="A MERN app to manage transaction-based investment data, showing real-time P&L analytics with a modern, secure dashboard."
-    src={projectFive}
-  />
-
-  {/* EXISTING PROJECT 6 */}
-  <ProjectsCard
-    title="Crowd Catch Cost Analysis"
-    des="MERN stack web app that analyzes the cost efficiency and impact of crowd gathering events using visual reports and financial projections."
-    src={projectSix}
-  />
-</div>
-    </section>
-  );
-}
-
-export default Projects;
+export default Projects

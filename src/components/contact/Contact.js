@@ -1,76 +1,89 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Title from '../layouts/Title';
-import ContactLeft from './ContactLeft';
+'use client'
+import { useRef, useEffect, useState } from 'react'
+import Title from '../layouts/Title'
+import { FaGraduationCap, FaBriefcase } from 'react-icons/fa'
+import { SiMongodb, SiExpress, SiNextdotjs } from 'react-icons/si'
+import { FaReact } from 'react-icons/fa'
 
 const Contact = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const contentRef = useRef(null);
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target); // Only animate once
-        }
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
-    }
-
-    return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
-      }
-    };
-  }, []);
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true) },
+      { threshold: 0.1 }
+    )
+    if (ref.current) obs.observe(ref.current)
+    return () => obs.disconnect()
+  }, [])
 
   return (
-    <section id="contact" className="w-full py-20 border-b-black">
-      <div className="flex justify-center items-center text-center">
-        <Title title="My journey through bugs, breakthroughs, and big ideas" des="About Me" />
-      </div>
-      <div className="w-full">
-        <div className="w-full h-auto flex flex-col lgl:flex-row justify-between">
-          <ContactLeft />
-          <div
-            ref={contentRef}
-            className="w-full lgl:w-[60%] h-full py-10 bg-gradient-to-r from-[#1e2024] to-[#23272b] flex flex-col gap-6 p-4 lgl:p-8 rounded-2xl shadow-lg text-white leading-relaxed tracking-wide"
-            style={{
-              fontFamily: 'Montserrat, sans-serif',
-              fontSize: '14px',
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-              transition: 'all 0.8s ease-in-out',
-            }}
-          >
-            <h2 className="text-2xl font-bold" style={{ color: 'rgb(255 1 79)' }}>Hey there 👋</h2>
-            <p>
-              I'm <span style={{ color: 'rgb(255 1 79)', fontWeight: '600' }}>Bubalan</span>, a final-year student pursuing
-              <span style={{ color: 'rgb(255 1 79)', fontWeight: '600' }}> MSc in Software Systems</span>. I'm passionate about building smart, scalable solutions using modern tech.
+    <section id="about" ref={ref} className="py-24 border-t border-black/[0.08]">
+      <div className={`max-w-6xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <Title title="About" des="Who I Am" />
+        <div className="grid grid-cols-1 lgl:grid-cols-2 gap-16 items-start">
+          <div>
+            <p
+              className="font-bold text-lightText leading-tight tracking-tight mb-8"
+              style={{ fontSize: 'clamp(26px, 3.5vw, 42px)' }}
+            >
+              "I build things for the{' '}
+              <span className="text-designColor">web</span>
+              {' '}that actually{' '}
+              <span className="text-greenAccent">matter.</span>"
             </p>
-            <p>
-              My development journey began with the <span style={{ color: 'rgb(255 1 79)', fontWeight: '600' }}>MERN stack</span>, and since then, I’ve dived deep into full-stack development, AI integration, and cloud deployment.
-              I love blending creativity with logic to craft smooth user experiences.
+            <div className="flex gap-3 flex-wrap">
+              {[SiMongodb, SiExpress, FaReact, SiNextdotjs].map((Icon, i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 flex items-center justify-center rounded-xl border border-black/[0.08] text-designColor hover:border-designColor/40 hover:bg-designColor/5 transition-all duration-200"
+                >
+                  <Icon size={18} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            <p className="text-mutedText leading-relaxed">
+              Hey 👋 I'm{' '}
+              <span className="text-lightText font-semibold">Bubalan</span>, a final-year student
+              pursuing an{' '}
+              <span className="text-designColor font-medium">MSc in Software Systems</span>. I'm
+              passionate about building smart, scalable solutions using modern web tech.
             </p>
-            <p>
-              Challenges in coding once felt overwhelming, but over time, every bug and breakdown helped me grow. These experiences shaped me into a
-              <span style={{ color: 'rgb(255 1 79)', fontWeight: '600' }}> resilient problem-solver</span> who now embraces complexity with curiosity.
+            <p className="text-mutedText leading-relaxed">
+              My journey started with the{' '}
+              <span className="text-lightText font-medium">MERN stack</span> and has since expanded
+              into AI integration, cloud deployment, and building full-stack products from zero to
+              production.
             </p>
-            <p>
-              I'm actively working on innovative AI + web/app-based projects, and my goal is to contribute meaningfully at a
-              <span style={{ color: 'rgb(255 1 79)', fontWeight: '600' }}> top tech company</span> where I can keep learning, building, and pushing my limits.
+            <p className="text-mutedText leading-relaxed">
+              Every bug, breakdown, and breakthrough shaped me into a{' '}
+              <span className="text-greenAccent font-medium">resilient problem-solver</span> who
+              embraces complexity with curiosity. My goal is to contribute meaningfully at a top
+              tech company.
             </p>
+            <div className="pt-2 flex flex-wrap gap-3">
+              {[
+                { Icon: FaGraduationCap, text: 'MSc Software Systems · 8.35 CGPA' },
+                { Icon: FaBriefcase,     text: 'Open to SDE / SWE Roles' },
+              ].map(({ Icon, text }, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl border border-black/[0.08] text-sm text-mutedText"
+                >
+                  <Icon size={13} className="text-designColor" />
+                  {text}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact

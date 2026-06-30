@@ -1,14 +1,11 @@
-import React from 'react'
+'use client'
 
-const Title = ({title, des}) => {
-  return (
-    <div className="flex flex-col gap-4 font-titleFont mb-14">
-      <h3 className="text-sm uppercase font-light text-designColor tracking-wide">
-       {title}
-      </h3>
-      <h1 className="text-4xl md:text-5xl text-gray-300 font-bold capitalize">{des}</h1>
-    </div>
-  );
-}
+const Title = ({ title, des }) => (
+  <div className="mb-14">
+    <p className="text-designColor text-xs font-semibold tracking-[0.2em] uppercase mb-3">{title}</p>
+    <h2 className="text-3xl mdl:text-4xl font-bold text-lightText tracking-tight">{des}</h2>
+    <div className="mt-4 w-10 h-px bg-designColor" />
+  </div>
+)
 
 export default Title
