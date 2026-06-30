@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Bubalan S — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio website built with **Next.js 14**, **Tailwind CSS**, and **React 18**.
 
-## Available Scripts
+## Live Site
 
-In the project directory, you can run:
+> Deploy URL goes here (Netlify / Vercel)
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Styling | Tailwind CSS + styled-components |
+| Language | JavaScript (React 18) |
+| Icons | react-icons |
+| Animations | CSS keyframes, IntersectionObserver |
+| Typewriter | react-simple-typewriter |
+| Scroll | react-scroll |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Sections
 
-### `npm test`
+- **Hero** — Name, typewriter role, CTA buttons, social links
+- **About** — Bio, education chips, availability status
+- **Technologies** — Scrolling ticker with tech logos
+- **Coding Arena** — LeetCode stats (292 solved), heatmap embed
+- **Resume** — Education timeline + Skills by category
+- **Projects** — Bento grid layout with GitHub links
+- **Footer** — Contact email, social icons, availability badge
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+```bash
+npm install
+npm run dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Open [http://localhost:3000](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Scripts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-### `npm run eject`
+## Design
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Light theme with **EsperPraxi** colour palette
+- Primary accent: `#2EA88A` (green)
+- Secondary accent: `#2B8EC9` (blue)
+- Background: `#FFFFFF` · Cards: `#F5F7FA` · Text: `#111827`
+- Inter font (Google Fonts)
+- Custom loading screen: `B.` logo → animated crosshair + spin → site reveal
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+app/
+  layout.js        # Root layout
+  page.js          # Entry — SSR-safe dynamic import
+  Portfolio.js     # Main client component
+  Loader.js        # Loading screen animation
+  globals.css      # Tailwind directives + global styles
+  registry.js      # styled-components SSR registry
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+src/components/
+  navbar/          # Fixed nav with scroll-aware glass effect
+  banner/          # Hero section
+  contact/         # About section
+  features/        # Scrolling tech ticker
+  tesimonial/      # LeetCode / Coding Arena stats
+  resume/          # Education timeline + Skills grid
+  projects/        # Bento grid project cards
+  footer/          # Footer + bottom bar
+  layouts/         # Shared Title component
+```
 
-## Learn More
+## About Me
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Bubalan Shanmuga Sundaram** — Full Stack Developer  
+MSc Computer Science · Open to SDE / SWE internship or full-time opportunities  
+📧 bubalan.shanmugasundaram@predigle.com
