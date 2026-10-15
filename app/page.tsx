@@ -1,27 +1,25 @@
 import Hero from '@/components/sections/Hero';
-import Tapes from '@/components/sections/Tapes';
+import Marquee from '@/components/sections/Marquee';
 import About from '@/components/sections/About';
-import Work from '@/components/sections/Work';
-import Earlier from '@/components/sections/Earlier';
-import Skills from '@/components/sections/Skills';
-import Agents from '@/components/sections/Agents';
-import Impact from '@/components/sections/Impact';
+import Journey from '@/components/sections/Journey';
+import Toolkit from '@/components/sections/Toolkit';
 import Projects from '@/components/sections/Projects';
+import Numbers from '@/components/sections/Numbers';
+import Process from '@/components/sections/Process';
 import Contact from '@/components/sections/Contact';
 
-// Order matters: ScrollTriggers are created top-to-bottom so the pinned git log offsets everything after it.
+// Order matters: ScrollTriggers are created top-to-bottom, and the pinned projects track offsets everything after it.
 export default function Home() {
   return (
     <>
       <Hero />
-      <Tapes />
+      <Marquee />
       <About />
-      <Work />
-      <Earlier />
-      <Skills />
-      <Agents />
-      <Impact />
+      <Journey />
+      <Toolkit />
       <Projects />
+      <Numbers />
+      <Process />
       <Contact />
     </>
   );

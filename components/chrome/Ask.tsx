@@ -67,23 +67,23 @@ export default function Ask() {
       <div className="ask-backdrop" onClick={hide} />
       <div className="ask-box" ref={box}>
         <label className="ask-in">
-          <span className="sr-only" id="askLabel">Ask about Bubalan</span>
+          <span className="sr-only" id="askLabel">Ask F.R.I.D.A.Y. about Bubalan</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" /></svg>
-          <input ref={input} type="text" autoComplete="off" spellCheck={false} placeholder="Ask about my work, stack, projects…"
+          <input ref={input} type="text" autoComplete="off" spellCheck={false} placeholder="Ask F.R.I.D.A.Y. about Bubalan…"
             value={q} onChange={e => setQ(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && q.trim()) stream(q); }} />
           <kbd>esc</kbd>
         </label>
         <div className="ask-body">
           <div className="ask-ans" aria-live="polite">
             {shown}
-            {streaming && <span style={{ display: 'inline-block', width: '.55em', height: '1.05em', verticalAlign: '-.15em', background: 'var(--amber)', marginLeft: 2 }} />}
+            {streaming && <span style={{ display: 'inline-block', width: '.55em', height: '1.05em', verticalAlign: '-.15em', background: 'var(--accent)', marginLeft: 2 }} />}
             {src && <span className="src">source: {src} · matched offline</span>}
           </div>
           <div className="ask-sugg">
             {SUGG.map(s => <button key={s} type="button" onClick={() => { setQ(s); stream(s); }}>{s}</button>)}
           </div>
         </div>
-        <div className="ask-foot"><span>offline · keyword-matched against this page — not an LLM</span><span>↵ ask · esc close</span></div>
+        <div className="ask-foot"><span>F.R.I.D.A.Y. · local knowledge base, matched on-device</span><span>↵ ask · esc close</span></div>
       </div>
     </div>
   );

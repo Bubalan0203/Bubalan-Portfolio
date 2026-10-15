@@ -2,7 +2,7 @@
 
 export const PROFILE = {
   name: 'Bubalan S',
-  title: 'Full Stack Developer',
+  title: 'Product Engineer',
   company: 'Predigle',
   location: 'Coimbatore, IN',
   email: 'bubalan28@gmail.com',
@@ -19,7 +19,7 @@ export const PROFILE = {
 export const NAV = ['about', 'work', 'stack', 'agents', 'impact', 'projects', 'contact'] as const;
 
 export const ROLES = [
-  'Full-stack developer',
+  'Product engineer',
   'Dashboards in React & Angular',
   'REST APIs in Django & Node',
   'Auth, roles & zero-downtime releases',
@@ -30,7 +30,7 @@ export type TermLine = { cmd: string } | { out: [string, string][]; wait?: numbe
 
 export const HERO_TERM: TermLine[] = [
   { cmd: 'whoami' },
-  { out: [['bubalan s', 'c'], [' — full stack developer @ predigle', 'd']] },
+  { out: [['bubalan s', 'c'], [' — product engineer @ predigle', 'd']] },
   { cmd: 'git log --oneline --reverse' },
   { out: [['a1f3c02 ', 'a'], ['2024 tia it wing — react component library, ui cycles −35%', '']] },
   { out: [['7a3e91f ', 'a'], ['2024 promoted to full-time · led a 4-dev team', '']] },
@@ -53,7 +53,7 @@ export const AI_TERM: TermLine[] = [
 ];
 
 export const ABOUT_TEXT =
-  "I'm Bubalan, a full-stack developer finishing an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology. I like owning a feature the whole way: shaping the data, writing the API, building the screen and shipping it without taking anything down. Today I do that at Predigle, on dashboards, services and access control for enterprise workflows. Before that I led a four-person team through four deployments, and built client websites on the side.";
+  "I'm Bubalan, a product engineer finishing an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology. I like owning a feature the whole way: shaping the data, writing the API, building the screen and shipping it without taking anything down. Today I do that at Predigle, on dashboards, services and access control for enterprise workflows. Before that I led a four-person team through four deployments, and built client websites on the side.";
 
 export const ABOUT_FACTS = [
   { big: '450+', small: 'DSA problems solved (LeetCode + GFG)' },
@@ -64,7 +64,7 @@ export const ABOUT_FACTS = [
 export const CERTS = ['Web Developer Bootcamp — Udemy', 'Developing Front-End Apps with React — Coursera'];
 
 export const TIMELINE = [
-  { date: 'Dec 2025', role: 'Full Stack Developer', sub: '(Full-Time Intern)', note: 'Joined to build across interface, services and deployment.' },
+  { date: 'Dec 2025', role: 'Product Engineer', sub: '', note: 'Joined to build across interface, services and deployment.' },
   { date: 'Present', role: 'Dashboards · APIs · Auth & releases', note: 'The three problem areas below.' },
   { date: 'Next', placeholder: '[ADD: promotion / title change, if any]' },
 ];

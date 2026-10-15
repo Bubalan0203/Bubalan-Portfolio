@@ -1,115 +1,73 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { HERO_TERM, PROFILE, ROLES } from '@/lib/content';
-import { gsap, useGSAP, MOTION_OK, clamp, finePointer, lerp, onIntro, openAsk, pointer, reducedMotion, scramble, typeTerm } from '@/lib/motion';
-import NetworkCanvas from './NetworkCanvas';
-
-const LETTERS = [...'Bubalan', ' ', 'S', '.'];
+import { PROFILE } from '@/lib/content';
+import { gsap, useGSAP, onIntro, MOTION_OK } from '@/lib/motion';
+import SystemMap from '@/components/fx/SystemMap';
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const term = useRef<HTMLDivElement>(null);
-  const slot = useRef<HTMLSpanElement>(null);
-  // per-letter weight/width state: the intro tweens `base`, the cursor pulls letters thin + narrow
-  const base = useRef(LETTERS.map(ch => ({ w: ch === 'S' ? 300 : 800, d: 100 })));
+  const root = useRef<HTMLElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
 
-  // letters react to cursor distance
+  // the name reacts to the cursor: letters near the pointer get heavier, lift and glow
   useEffect(() => {
-    if (reducedMotion()) return;
-    const chs = [...ref.current!.querySelectorAll<HTMLElement>('.name .ch')];
-    const prox = chs.map(() => 0);
-    let visible = true, raf = 0;
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
-    io.observe(ref.current!);
-    const fine = finePointer(), R = 300;
-    const loop = () => {
-      if (visible) chs.forEach((c, i) => {
-        let target = 0;
-        if (fine) {
-          const r = c.getBoundingClientRect();
-          target = Math.pow(clamp(1 - Math.hypot(pointer.x - (r.left + r.width / 2), pointer.y - (r.top + r.height / 2)) / R, 0, 1), 1.4);
-        }
-        prox[i] += (target - prox[i]) * .14;
-        const b = base.current[i];
-        c.style.fontVariationSettings = `"wght" ${lerp(b.w, 200, prox[i]).toFixed(0)}, "wdth" ${lerp(b.d, 75, prox[i]).toFixed(1)}, "opsz" 96`;
+    if (!window.matchMedia('(pointer:fine)').matches || !window.matchMedia(MOTION_OK).matches) return;
+    const letters = Array.from(nameRef.current?.querySelectorAll<HTMLElement>('.nl') ?? []);
+    const setters = letters.map(el => ({
+      el,
+      w: gsap.quickTo(el, '--w', { duration: .5, ease: 'power3.out' }),
+      y: gsap.quickTo(el, 'y', { duration: .6, ease: 'power3.out' }),
+      g: gsap.quickTo(el, '--g', { duration: .5, ease: 'power3.out' }),
+    }));
+    const move = (e: PointerEvent) => {
+      setters.forEach(({ el, w, y, g }) => {
+        const r = el.getBoundingClientRect();
+        const d = Math.hypot(e.clientX - (r.left + r.width / 2), (e.clientY - (r.top + r.height / 2)) * 1.4);
+        const k = Math.max(0, 1 - d / 260);
+        w(600 + k * 200); y(-k * 10); g(k);
       });
-      raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); };
+    const leave = () => setters.forEach(({ w, y, g }) => { w(600); y(0); g(0); });
+    const sec = root.current!;
+    sec.addEventListener('pointermove', move);
+    sec.addEventListener('pointerleave', leave);
+    return () => { sec.removeEventListener('pointermove', move); sec.removeEventListener('pointerleave', leave); };
   }, []);
 
   useGSAP(() => {
-    const el = ref.current!;
     const mm = gsap.matchMedia();
-    let stopTerm = () => {};
-    let roleTimer = 0;
     mm.add(MOTION_OK, () => {
-      gsap.set(el.querySelectorAll('.name .ch'), { yPercent: 115 });
-      gsap.set(el.querySelectorAll('.h-in'), { opacity: 0, y: 26 });
-      base.current.forEach(b => { b.w = 200; b.d = 75; });
+      gsap.set('.hero-line > span', { yPercent: 110 });
+      gsap.set('.hero-fade', { opacity: 0, y: 20 });
+      gsap.set('.sysmap', { opacity: 0, y: 30, rotateX: 8, transformPerspective: 1200 });
+      gsap.set('.sm-node, .sm-link, .sm-loop-t, .sm-fix-t', { opacity: 0 });
+      const off = onIntro(() => {
+        gsap.timeline({ delay: .05 })
+          .to('.hero-line > span', { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .1 }, 0)
+          .to('.hero-fade', { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: .07 }, .3)
+          .to('.sysmap', { opacity: 1, y: 0, rotateX: 0, duration: 1.4, ease: 'expo.out' }, .25)
+          .to('.sm-node', { opacity: 1, duration: .5, stagger: .12 }, .7)
+          .to('.sm-link, .sm-loop-t, .sm-fix-t', { opacity: 1, duration: .6, stagger: .05 }, 1);
+      });
+      return off;
     });
-    const off = onIntro(() => {
-      stopTerm = typeTerm(term.current!, HERO_TERM, { speed: 34 });
-      if (reducedMotion()) return;
-      gsap.timeline()
-        .to(el.querySelectorAll('.name .ch'), { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .055 }, 0)
-        .to(base.current, { w: (i: number) => (LETTERS[i] === 'S' ? 300 : 800), d: 100, duration: 1.8, ease: 'expo.out', stagger: .055 }, .1)
-        .to(el.querySelectorAll('.h-in'), { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: .08 }, .35);
-      // rotating role line
-      let i = 0;
-      roleTimer = window.setInterval(() => {
-        const s = slot.current; if (!s) return;
-        i = (i + 1) % ROLES.length;
-        const old = s.firstElementChild as HTMLElement, nu = document.createElement('span');
-        nu.textContent = ROLES[i]; s.appendChild(nu);
-        gsap.fromTo(nu, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .7, ease: 'expo.out' });
-        gsap.to(old, { yPercent: -100, opacity: 0, duration: .6, ease: 'expo.in', onComplete: () => old.remove() });
-        scramble(nu);
-      }, 2800);
-    });
-    return () => { off(); stopTerm(); clearInterval(roleTimer); };
-  }, { scope: ref });
+  }, { scope: root });
 
   return (
-    <section className="hero bp" id="top" data-path="~/index.tsx" aria-label="Introduction" ref={ref}>
-      <NetworkCanvas />
-      <span className="reg r-tl" aria-hidden="true" /><span className="reg r-tr" aria-hidden="true" />
-      <div className="wrap hero-top h-in">
-        <span className="live"><i /><b>{PROFILE.title}</b>&nbsp;@ {PROFILE.company}</span>
-        <span>{PROFILE.location}</span>
-        <span>M.Sc. Software Systems · CIT</span>
-      </div>
-      <div className="wrap">
-        <div className="hero-kicker h-in"><span className="dash" /><span>~/hello — hi, I&apos;m</span></div>
-        <h1 className="name" aria-label="Bubalan S.">
-          {LETTERS.map((ch, i) => (
-            <span className="ch-wrap" aria-hidden="true" key={i}>
-              <span className={`ch${ch === 'S' ? ' ini' : ''}${ch === '.' ? ' dot' : ''}`}
-                style={{ fontVariationSettings: `"wght" ${ch === 'S' ? 300 : 800}, "wdth" 100, "opsz" 96` }}>
-                {ch === ' ' ? ' ' : ch}
-              </span>
-            </span>
-          ))}
+    <section className="hero" id="top" ref={root}>
+      <div className="hero-copy">
+        <p className="hero-hint hero-fade"><small className="assoc">Associate</small>{PROFILE.title} <i>@</i> {PROFILE.company}</p>
+        <h1 className="hero-title">
+          <span className="hero-line hero-name" aria-label="Bubalan"><span ref={nameRef}>{'Bubalan'.split('').map((c, i) => <span key={i} className="nl" aria-hidden="true">{c}</span>)}<b className="hero-dot">.</b></span></span>
         </h1>
-        <div className="hero-grid">
-          <div>
-            <p className="role h-in"><span className="role-pre">currently →</span><span className="role-slot" ref={slot}><span>{ROLES[0]}</span></span><span className="role-caret" aria-hidden="true" /></p>
-            <p className="pitch h-in"><strong>{PROFILE.pitchStrong}</strong>{PROFILE.pitchRest}</p>
-            <div className="hero-cta h-in">
-              <a href="#work" className="btn primary magnetic" data-cursor="work">
-                <span className="btn-t">See the work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg></span>
-              </a>
-              <button type="button" className="btn magnetic" onClick={openAsk}><span className="btn-t">Ask about me <kbd>⌘K</kbd></span></button>
-            </div>
-          </div>
-          <div className="term h-in" role="img" aria-label="Terminal summarising Bubalan's career: TIA IT Wing internships with a React component library and a promotion, freelance client websites at Create Digital Solution, and now dashboards, APIs, auth and zero-downtime deploys at Predigle.">
-            <div className="term-bar" aria-hidden="true"><i /><i /><i /><span>zsh — ~/bubalan</span></div>
-            <div className="term-body" ref={term} aria-hidden="true" />
-          </div>
-        </div>
+        <p className="hero-lede hero-fade">Turning complex problems into products people rely on.</p>
+        <p className="hero-sub hero-fade">
+          From the first requirement to a live release in the cloud, I design the data, the systems and the experience —
+          working alongside <b>AI agents</b> for speed, with <b>a human eye on every change</b>.
+        </p>
       </div>
-      <div className="scroll-cue" aria-hidden="true"><i />scroll</div>
+      <div className="hero-side">
+        <SystemMap />
+      </div>
     </section>
   );
 }

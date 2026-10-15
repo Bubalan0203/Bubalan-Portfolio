@@ -1,50 +1,44 @@
 import type { Metadata, Viewport } from 'next';
-import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google';
+import { Sora, Manrope, JetBrains_Mono } from 'next/font/google';
 import SmoothScroll from '@/components/chrome/SmoothScroll';
-import Loader from '@/components/chrome/Loader';
-import Cursor from '@/components/chrome/Cursor';
-import Nav from '@/components/chrome/Nav';
-import StatusBar from '@/components/chrome/StatusBar';
+import Intro from '@/components/chrome/Intro';
+import Header from '@/components/chrome/Header';
 import Ask from '@/components/chrome/Ask';
+import Background from '@/components/fx/Background';
+import Interactions from '@/components/fx/Interactions';
+import TypedHeadings from '@/components/fx/TypedHeadings';
 import './globals.css';
 
-const bricolage = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', axes: ['opsz', 'wdth'], display: 'swap' });
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' });
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' });
+const display = Sora({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
+const sans = Manrope({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'Bubalan S — Full Stack Developer',
-  description: 'Bubalan S — full stack developer at Predigle. I build products end to end: the data model, the API, the interface and the release.',
+  title: 'Bubalan S — Associate Product Engineer',
+  description: 'Bubalan S — product engineer at Predigle. I build products end to end: the data model, the API, the interface and the release.',
 };
 
-export const viewport: Viewport = {
-  colorScheme: 'dark light',
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#090B0F' },
-    { media: '(prefers-color-scheme: light)', color: '#EEF1F5' },
-  ],
-};
+export const viewport: Viewport = { colorScheme: 'dark', themeColor: '#02060B' };
 
-// Runs before paint: saved theme, reduced-motion flag, and scroll lock while the loader plays.
-const BOOT = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('rm');else d.classList.add('loading');})();`;
+// Runs before paint: dark is the default; only a saved "light" choice overrides it.
+const BOOT = `(function(){var d=document.documentElement;try{if(localStorage.getItem('theme')==='light')d.setAttribute('data-theme','light');}catch(e){}if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('rm');else d.classList.add('loading');})();`;
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-theme="dark" className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
         <SmoothScroll />
-        <Loader />
-        <div className="progress" aria-hidden="true"><i id="progress" /></div>
-        <div className="grain" aria-hidden="true" />
-        <Cursor />
-        <Nav />
+        <Background />
+        <Intro />
+        <Header />
         <main id="main">{children}</main>
-        <StatusBar />
         <Ask />
+        <Interactions />
+        <TypedHeadings />
       </body>
     </html>
   );
