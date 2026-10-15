@@ -1,7 +1,12 @@
 'use client';
 import { useRef } from 'react';
-import { TAPE_WORDS } from '@/lib/content';
 import { gsap, useGSAP, ScrollTrigger, MOTION_OK } from '@/lib/motion';
+
+// The delivery lifecycle, in order, so the band reads as one flow.
+const FLOW = [
+  'Discovery', 'Requirements', 'System Design', 'Data Modelling', 'API Engineering',
+  'Interface Engineering', 'AI Agents & MCP', 'Code Review', 'CI/CD', 'Cloud Deployment', 'Observability',
+];
 
 /** Endless word band whose speed and direction follow scroll velocity. */
 export default function Marquee() {
@@ -22,9 +27,9 @@ export default function Marquee() {
     });
   }, { scope: root });
 
-  const words = [...TAPE_WORDS, 'Shipped with care'];
+  const words = FLOW;
   const row = words.map((w, i) => (
-    <span key={i} className={i % 2 ? 'mq-w alt' : 'mq-w'}>{w}<i aria-hidden="true">◆</i></span>
+    <span key={i} className={i % 2 ? 'mq-w alt' : 'mq-w'}>{w}<span className="mq-sep" aria-hidden="true"><i /><b /><i /></span></span>
   ));
 
   return (

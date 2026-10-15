@@ -1,6 +1,7 @@
 import Hero from '@/components/sections/Hero';
 import Marquee from '@/components/sections/Marquee';
 import About from '@/components/sections/About';
+import Credentials from '@/components/sections/Credentials';
 import Journey from '@/components/sections/Journey';
 import Toolkit from '@/components/sections/Toolkit';
 import Projects from '@/components/sections/Projects';
@@ -16,6 +17,7 @@ export default function Home() {
       <Marquee />
       <About />
       <Journey />
+      <Credentials />
       <Toolkit />
       <Projects />
       <Numbers />

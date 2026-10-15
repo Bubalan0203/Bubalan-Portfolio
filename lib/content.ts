@@ -58,7 +58,7 @@ export const ABOUT_TEXT =
 export const ABOUT_FACTS = [
   { big: '450+', small: 'DSA problems solved (LeetCode + GFG)' },
   { big: 'Top 6', small: 'of 45+ teams · SensAI Hackathon' },
-  { big: '5+', small: 'freelance projects, 5★, zero extensions' },
+  { big: '10+', small: 'freelance projects, 5★, zero extensions' },
 ];
 
 export const CERTS = ['Web Developer Bootcamp — Udemy', 'Developing Front-End Apps with React — Coursera'];
@@ -102,8 +102,8 @@ export type Commit = {
 
 export const EARLIER: Commit[] = [
   {
-    hash: '0c1t2021', ref: '(tag: init)', company: 'CIT', meta: '2021 – present · Coimbatore', small: true, amber: true,
-    summary: 'Started the integrated M.Sc. in Software Systems — five years of building, systems design and project work.',
+    hash: '0c1t2021', ref: '(tag: init)', company: 'CIT', meta: '2021 – May 2026 · Coimbatore', small: true, amber: true,
+    summary: 'Completed the five-year integrated M.Sc. in Software Systems — years of building, systems design and project work.',
     big: { value: '8.22', label: 'CGPA' },
   },
   {
