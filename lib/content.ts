@@ -16,7 +16,7 @@ export const PROFILE = {
   ],
 };
 
-export const NAV = ['about', 'work', 'stack', 'agents', 'impact', 'projects', 'contact'] as const;
+export const NAV = ['about', 'work', 'stack', 'agents', 'projects', 'contact'] as const;
 
 export const ROLES = [
   'Product engineer',

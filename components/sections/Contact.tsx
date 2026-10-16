@@ -25,7 +25,7 @@ export default function Contact() {
 
   return (
     <section className="contact" id="contact" ref={root}>
-      <p className="label"><span>07</span>Contact</p>
+      <p className="label"><span>08</span>Contact</p>
       <h2 className="cta">
         <span className="cta-line"><span>Let&rsquo;s build</span></span>
         <span className="cta-line"><span><em>what&rsquo;s next.</em></span></span>

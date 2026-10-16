@@ -51,7 +51,7 @@ export default function Projects() {
     <section className="projects" id="projects" ref={root}>
       <div className="proj-pin">
         <div className="proj-head">
-          <Label n="04">Selected projects</Label>
+          <Label n="05">Selected projects</Label>
           <div className="proj-progress" aria-hidden="true"><i /></div>
         </div>
         <div className="proj-track" ref={track}>

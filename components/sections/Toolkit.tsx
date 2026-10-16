@@ -71,6 +71,21 @@ const PTS = TOOLS.map((_, i) => {
   const y = 1 - (i + .5) * (2 / TOOLS.length), r = Math.sqrt(1 - y * y), th = i * 2.399963;
   return [Math.cos(th) * r, y, Math.sin(th) * r] as const;
 });
+const dist = (p: readonly number[], q: readonly number[]) => (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2;
+
+// one tour that visits every logo, each hop going to the nearest one not yet visited
+const TOUR = (() => {
+  const left = new Set(PTS.map((_, i) => i)), out = [0];
+  left.delete(0);
+  while (left.size) {
+    const p = PTS[out[out.length - 1]];
+    let best = -1, bd = Infinity;
+    left.forEach(j => { const q = PTS[j], d = (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2; if (d < bd) { bd = d; best = j; } });
+    out.push(best); left.delete(best);
+  }
+  return out;
+})();
+const HOP_MS = 1300; // one jump: the arc reaches out, then lets go behind it, then it rests a beat
 
 /**
  * Every tool at once, orbiting as a 3D sphere of real logos. Drag to spin it, hover a logo to inspect it,
@@ -80,9 +95,11 @@ export default function Toolkit() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const nodes = useRef<(HTMLButtonElement | null)[]>([]);
+  const arcs = useRef<(SVGPathElement | null)[]>([]);
+  const heads = useRef<(SVGCircleElement | null)[]>([]);
   const [group, setGroup] = useState<Group | null>(null);
   const [pick, setPick] = useState<number>(0);
-  const live = useRef({ group: null as Group | null, hover: -1 });
+  const live = useRef({ group: null as Group | null, hover: -1, paused: false });
   useGSAP(() => revealBatch(root.current!), { scope: root });
 
   useEffect(() => { live.current.group = group; }, [group]);
@@ -90,6 +107,7 @@ export default function Toolkit() {
   useEffect(() => {
     const el = stage.current!;
     const still = reducedMotion();
+    const jp = { from: TOUR[0], to: TOUR[1], start: 0, held: 0, g: null as Group | null };
     let ax = -.25, ay = 0, vx = 0, vy = still ? 0 : .0035, drag: { x: number; y: number } | null = null, raf = 0, seen = true;
     const io = new IntersectionObserver(([e]) => { seen = e.isIntersecting; });
     io.observe(el);
@@ -105,19 +123,22 @@ export default function Toolkit() {
     el.addEventListener('pointerup', up);
     el.addEventListener('pointercancel', up);
 
-    const frame = () => {
+    const frame = (now = 0) => {
       raf = requestAnimationFrame(frame);
       if (!seen) return;
       ay += vy; ax = Math.max(-1, Math.min(1, ax + vx));
       if (!drag) { vx *= .92; vy += ((still ? 0 : .0035) - vy) * .03; }
       const R = el.clientWidth * .38, cx = Math.cos(ax), sx = Math.sin(ax), cy = Math.cos(ay), sy = Math.sin(ay);
       const { group: g, hover } = live.current;
+      const W2 = el.clientWidth / 2, H2 = el.clientHeight / 2;
+      const pos: [number, number, number][] = [];
       PTS.forEach(([x, y, z], i) => {
         const n = nodes.current[i];
         if (!n) return;
         const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
         const y2 = y * cx - z1 * sx, z2 = y * sx + z1 * cx;
         const depth = (z2 + 1) / 2; // 0 back … 1 front
+        pos[i] = [W2 + x1 * R, H2 + y2 * R, depth];
         const match = !g || TOOLS[i].group === g;
         const s = (.55 + depth * .55) * (match ? 1 : .8) * (hover === i ? 1.18 : 1);
         n.style.transform = `translate(-50%,-50%) translate3d(${(x1 * R).toFixed(1)}px,${(y2 * R).toFixed(1)}px,0) scale(${s.toFixed(3)})`;
@@ -125,6 +146,47 @@ export default function Toolkit() {
         n.style.zIndex = String(Math.round(depth * 100) + (match ? 100 : 0));
         n.style.filter = depth < .35 ? `blur(${((.35 - depth) * 5).toFixed(1)}px)` : '';
       });
+      // one dotted arc tours every logo: it reaches the next one, lets go behind it, the card shows where it landed
+      const arc = arcs.current[0], head = heads.current[0];
+      if (live.current.paused) {
+        if (!jp.held) jp.held = now;
+        if (arc) arc.style.opacity = '0';
+        if (head) head.style.opacity = '0';
+      } else if (arc && head) {
+        if (jp.held) { jp.start += now - jp.held; jp.held = 0; }
+        // area changed: abandon the jump in flight and head for the nearest tool of that area
+        if (jp.g !== g) {
+          jp.g = g;
+          if (g && TOOLS[jp.to].group !== g) {
+            const p = PTS[jp.from];
+            jp.to = TOUR.filter(j => TOOLS[j].group === g && j !== jp.from)
+              .sort((a, b) => dist(PTS[a], p) - dist(PTS[b], p))[0];
+            jp.start = now;
+          }
+        }
+        let t = (now - jp.start) / HOP_MS;
+        if (t >= 1) {
+          jp.from = jp.to; jp.start = now; t = 0;
+          setPick(jp.from);
+          const list = g ? TOUR.filter(j => TOOLS[j].group === g) : TOUR;
+          const at = list.indexOf(jp.from);
+          jp.to = list[(at + 1) % list.length];
+        }
+        const pa = pos[jp.from], pb = pos[jp.to];
+        const mx = (pa[0] + pb[0]) / 2, my = (pa[1] + pb[1]) / 2, ox = mx - W2, oy = my - H2;
+        const on = Math.hypot(ox, oy) || 1, lift = Math.hypot(pb[0] - pa[0], pb[1] - pa[1]) * .35;
+        const qx = mx + (ox / on) * lift, qy = my + (oy / on) * lift;
+        const at = (v: number) => { const u = 1 - v; return [u * u * pa[0] + 2 * u * v * qx + v * v * pb[0], u * u * pa[1] + 2 * u * v * qy + v * v * pb[1]]; };
+        const e = (x: number) => x * x * (3 - 2 * x);
+        const hd = e(Math.min(1, t * 1.8)), tl = e(Math.min(1, Math.max(0, (t - .4) / .45)));
+        let d = '';
+        for (let i = 0; i <= 14; i++) { const [x, y] = at(tl + (hd - tl) * (i / 14)); d += `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`; }
+        arc.setAttribute('d', d);
+        const [hx, hy] = at(hd);
+        head.setAttribute('cx', hx.toFixed(1)); head.setAttribute('cy', hy.toFixed(1));
+        const vis = String(Math.min(1, (pa[2] + pb[2]) / 2 + .35) * (tl >= 1 ? 0 : 1));
+        arc.style.opacity = vis; head.style.opacity = vis;
+      }
     };
     frame();
     return () => {
@@ -142,11 +204,15 @@ export default function Toolkit() {
       <Label n="04">Toolkit</Label>
       <div className="nc-head">
         <h2 className="nc-title rv">From the first pixel <em>to production.</em></h2>
-        <p className="jh-intro rv">All {TOOLS.length} tools I build and ship with, in one orbit. Drag to spin it, point at a logo to inspect it.</p>
+        <p className="jh-intro rv">All {TOOLS.length} tools I build and ship with, in one orbit. A spark tours every one of them; point inside to take over, drag to spin.</p>
       </div>
 
       <div className="orb rv">
-        <div className="orb-stage" ref={stage}>
+        <div className="orb-stage" ref={stage} onPointerEnter={() => { live.current.paused = true; }} onPointerLeave={() => { live.current.paused = false; live.current.hover = -1; }}>
+          <svg className="orb-net" aria-hidden="true">
+            <path ref={el => { arcs.current[0] = el; }} />
+            <circle r="3.4" className="orb-hop" ref={el => { heads.current[0] = el; }} />
+          </svg>
           <i className="orb-ring r1" /><i className="orb-ring r2" /><i className="orb-ring r3" /><i className="orb-core" />
           {TOOLS.map((tool, i) => (
             <button key={tool.name} type="button" ref={el => { nodes.current[i] = el; }} className={`orb-node${pick === i ? ' on' : ''}`}
