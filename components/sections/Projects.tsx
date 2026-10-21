@@ -62,7 +62,7 @@ export default function Projects() {
         <div className="proj-track" ref={track}>
           <div className="proj-intro">
             <h2 className="h2">Things I&rsquo;ve <em>built</em> on my own time.</h2>
-            <p>Three side projects — an AI product, a cross-platform system and a fintech prototype. Scroll to browse →</p>
+            <p>Three side projects — an AI product, a fintech prototype and a cross-platform system. Scroll to browse →</p>
           </div>
           {PROJECTS.map((p, i) => (
             <article key={p.name} className="pcard">
@@ -75,6 +75,7 @@ export default function Projects() {
                   const [why, what] = b.split(' → ');
                   return <li key={b}><span>{why}</span>{what && <b>{what}</b>}</li>;
                 })}</ul>
+                <dl className="pcard-facts">{p.facts.map(([v, l]) => <div key={l}><dt>{v}</dt><dd>{l}</dd></div>)}</dl>
                 <div className="tags">{p.tags.map(t => <span key={t}>{t}</span>)}</div>
               </div>
             </article>
@@ -82,6 +83,7 @@ export default function Projects() {
           <div className="pcard pcard-next">
             <span className="core-dot" />
             <p>Next build <em>in progress.</em></p>
+            <a className="pcard-ask" href="#contact">Want a code walkthrough of any of these? Get in touch →</a>
           </div>
         </div>
       </div>

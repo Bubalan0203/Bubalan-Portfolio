@@ -114,7 +114,7 @@ export const HOW = [
   { icon: 'shield', title: 'Verify everything', body: "Generated code gets the same bar as mine: it runs, it's tested, and I read the diff before it becomes a PR." },
 ] as const;
 
-export type Project = { kind: string; badge: string; name: string; sub: string; bullets: string[]; tags: string[]; vis: 'codecraft' | 'roomz' | 'paygate' };
+export type Project = { kind: string; badge: string; name: string; sub: string; bullets: string[]; tags: string[]; facts: [string, string][]; vis: 'codecraft' | 'roomz' | 'paygate' };
 
 export const PROJECTS: Project[] = [
   {
@@ -125,6 +125,7 @@ export const PROJECTS: Project[] = [
       'Iterating was slow → real-time previews and one-click Netlify deploys cut development time by 50%.',
     ],
     tags: ['React', 'OpenAI', 'Firebase', 'Razorpay'],
+    facts: [['100+', 'paid generations'], ['50%', 'less build time']],
   },
   {
     kind: '02 · fintech prototype', badge: 'security-first', name: 'Paygate', sub: 'Secure payment gateway (prototype)', vis: 'paygate',
@@ -134,6 +135,7 @@ export const PROJECTS: Project[] = [
       'Payments must be authorised and private → multi-bank UPI with OTP authorisation and AES-256-GCM encrypted communication.',
     ],
     tags: ['MERN', 'JWT', 'AES-256-GCM'],
+    facts: [['3', 'parties: customer, merchant, bank'], ['UPI + OTP', 'payment authorisation']],
   },
   {
     kind: '03 · cross-platform', badge: 'client brief', name: 'Roomz', sub: 'Room booking system', vis: 'roomz',
@@ -143,5 +145,6 @@ export const PROJECTS: Project[] = [
       'Owners needed oversight → a management interface for rooms, bookings, payments and analytics.',
     ],
     tags: ['React.js', 'React Native', 'Electron.js', 'Firebase'],
+    facts: [['3', 'platforms: web, mobile, desktop'], ['Live', 'active-room tracking']],
   },
 ];

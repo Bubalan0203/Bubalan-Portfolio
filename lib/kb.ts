@@ -4,11 +4,17 @@ export type KBEntry = { k: string[]; a: string; src: string; next?: string[] };
 export const KB: KBEntry[] = [
   { k: ['who', 'about', 'yourself', 'intro', 'introduce', 'bubalan', 'name', 'summary', 'you'], src: '~/about.md',
     a: "Bubalan S is an Associate Product Engineer at Predigle. He completed an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology in May 2026 (CGPA 8.22). He builds products end to end: the data model, the API, the interface and the release that ships it." },
-  { k: ['healthcare', 'health', 'hospital', 'clinic', 'doctor', 'hipaa', 'phi', 'medical', 'patient', 'extraction', 'document', 'documents'], src: '~/work/predigle.md',
+  { k: ['healthcare', 'health', 'hospital', 'clinic', 'doctor', 'medical', 'patient'], src: '~/work/predigle.md',
     a: "At Predigle he works on healthcare assist applications for clinics and hospitals:\n• Role-based flows for doctors, front desk, office staff and admins across many features.\n• A document extraction agent that maps healthcare documents into the right keys, with high validation and confidence checks.\n• Healthcare use cases taken end to end across front end and back end.\n• Everything built under HIPAA compliance and PHI handling rules." },
+  { k: ['extraction', 'document', 'documents', 'extract', 'ocr', 'keys', 'validation'], src: '~/work/predigle.md',
+    a: "At Predigle he works on a document extraction agent for healthcare applications. It reads healthcare documents and maps each value into the right key, with high validation and confidence checks before anything is saved to a record." },
+  { k: ['hipaa', 'phi', 'compliance', 'compliant', 'privacy', 'regulation'], src: '~/work/predigle.md',
+    a: "His healthcare work follows HIPAA compliance and PHI handling rules: patient data is protected at every layer, from the screens to the APIs to storage, in every feature he ships at Predigle." },
+  { k: ['intern', 'internship', 'trainee'], src: '~/work/predigle.md',
+    a: "As a Software Developer Intern at Predigle (Dec 2025–May 2026) he built dashboards in AngularJS and React from reusable components, REST APIs in Django and Node.js, secure authentication with role-based access, and shipped zero-downtime releases. He then moved into the full-time Associate Product Engineer role. Earlier, at TIA IT Wing, he was promoted from part-time to full-time intern." },
   { k: ['predigle', 'current', 'now', 'job', 'today', 'present', 'company', 'work', 'role', 'doing'], src: '~/work/predigle.md',
     a: "He joined Predigle in Dec 2025 as a Software Developer Intern and since May 2026 he has been an Associate Product Engineer at Predigle, working on healthcare assist applications. Now: role-based flows for clinic roles (doctor, front desk, office, admin), a document extraction agent that maps healthcare documents to the right keys with high validation, healthcare features end to end across front end and back end, and HIPAA and PHI compliance. As an intern he built dashboards in AngularJS and React, REST APIs in Django and Node.js, secure auth with role-based access, and zero-downtime releases." },
-  { k: ['experience', 'earlier', 'previous', 'before', 'history', 'career', 'tia', 'intern', 'internship', 'jobs'], src: '~/work/earlier.log',
+  { k: ['experience', 'earlier', 'previous', 'before', 'history', 'career', 'tia', 'jobs'], src: '~/work/earlier.log',
     a: "Before Predigle:\n• TIA IT Wing, Feb–Nov 2024. He started as a part-time intern and was promoted to full-time. He built a reusable React component library (UI cycles cut by 35%), streamlined form workflows (manual processing cut by 60%), deployed JWT-secured APIs on cloud servers, and led a 4-member team through 4 deployments.\n• Create Digital Solution, Dec 2024–May 2025, part-time. He shipped 5+ responsive client websites in React and Bootstrap, with real-time contact forms and mobile-friendly interfaces." },
   { k: ['create', 'digital', 'websites', 'clients', 'client', 'site'], src: '~/work/earlier.log',
     a: "At Create Digital Solution (Dec 2024–May 2025, part-time) he built 5+ responsive websites in React and Bootstrap to each client's brand and requirements. He also wired real-time contact forms to an email service and delivered fast, mobile-friendly interfaces." },
@@ -46,6 +52,12 @@ export const KB: KBEntry[] = [
     a: "From his résumé: 60% less manual form-processing time, 35% shorter UI development cycles, 5+ client websites, 4 deployments led, 450+ DSA problems solved, and a top-6 hackathon finish among 45+ teams. On CodeCraft: 100+ paid generations and 50% less development time." },
   { k: ['contact', 'email', 'mail', 'hire', 'hiring', 'freelance', 'freelancer', 'opportunity', 'collaborate', 'phone', 'number', 'reach', 'linkedin', 'github', 'connect', 'talk', 'available'], src: '~/contact.sh',
     a: "He's open to projects and freelance work. Email is best: bubalan28@gmail.com. He's also on LinkedIn (linkedin.com/in/bubalans), GitHub (github.com/Bubalan0203) and LeetCode." },
+  { k: ['years', 'long', 'since', 'seniority', 'level', 'senior', 'junior', 'fresher'], src: '~/work/',
+    a: "He has been building software professionally since Feb 2024: TIA IT Wing (Feb–Nov 2024), Create Digital Solution (Dec 2024–May 2025), then Predigle from Dec 2025, as an intern and, since May 2026, as Associate Product Engineer." },
+  { k: ['process', 'workflow', 'approach', 'method', 'tools', 'codex', 'copilot', 'cursor', 'review', 'quality'], src: '~/ai/workflow.md',
+    a: "His day-to-day loop: write the spec, let Claude Code plan and build, Codex test and refactor, GitHub Copilot do an automated review, then he reads every diff himself before it merges and deploys. Agents bring speed; he owns the judgement." },
+  { k: ['solve', 'solving', 'problem', 'think', 'thinking', 'plan', 'interview', 'algorithm'], src: '~/notes/plan.md',
+    a: "His problem-solving plan has six steps: understand the problem and limits, work small examples and edge cases, get a brute-force answer, optimise the repeated work (hash maps, two pointers, DP, heaps), prove it against the brute force, then explain the time and space trade-off." },
   { k: ['where', 'location', 'based', 'live', 'city', 'india', 'timezone'], src: '~/contact.sh',
     a: "He's in Coimbatore, India, on IST (UTC+5:30)." }
 ];
@@ -85,15 +97,44 @@ const INTENTS: { re: RegExp; a: string; next?: string[] }[] = [
   { re: / (who|what) are you | your name | what is friday | are you (an? )?(ai|bot|human|real)|what can you (do|answer)| help /, a: "I'm F.R.I.D.A.Y., an assistant that knows Bubalan's résumé and this site. I run entirely in your browser, so nothing you type leaves the page. Try: his current role, healthcare work, tech stack, projects, education, LeetCode, or contact details." },
   { re: / (salary|ctc|package|pay|age|old|married|wife|girlfriend|religion|caste|address) /, a: "That's personal, so I'll leave it for Bubalan to discuss directly. You can reach him at bubalan28@gmail.com." },
   { re: / (why|should).*(hire|choose|pick)|(strength|strengths|good at|best at|unique|stand out) /, a: "In short: he owns features end to end. Today that means healthcare applications at Predigle, with role-based clinic flows, a document extraction agent and HIPAA-aware features. Before that he led a 4-member team at TIA IT Wing and shipped client sites at Create Digital Solution. He also solves problems daily on LeetCode." },
-  { re: / (resume|cv) /, a: "You can download the résumé from the Contact section or the menu (Bubalan_S_Resume.pdf). Everything on this page comes from it." },
+  { re: / (resume|cv|r sum|download) /, a: "You can download the résumé from the Contact section or the menu (Bubalan_S_Resume.pdf). Everything on this page comes from it." },
   { re: / (joke|weather|news|cricket|movie|song|recipe|capital of|president|bitcoin) /, a: "I only know about Bubalan, so I'd be guessing there. Ask me about his work, projects or skills instead." },
 ];
 
 export type Answer = { a: string; src: string; next?: string[] };
 
+// follow-up chips per topic, keyed by the entry's first keyword
+const NEXT: Record<string, string[]> = {
+  extraction: ['How does he handle HIPAA?', 'Role-based clinic flows', 'What did he do as an intern?'],
+  hipaa: ['Tell me about the document extraction agent', 'Security experience', 'Healthcare work'],
+  intern: ['What does he do at Predigle?', 'Earlier experience', 'What has he led?'],
+  who: ['What does he do at Predigle?', "What's his stack?", 'How can I contact him?'],
+  healthcare: ['Tell me about the document extraction agent', 'How does he handle HIPAA?', 'What did he do as an intern?'],
+  predigle: ['Healthcare work', 'What did he do as an intern?', 'Earlier experience'],
+  experience: ['What has he led?', 'Create Digital Solution', 'What does he do at Predigle?'],
+  skills: ['Frontend work', 'Backend and APIs', 'How does he use AI?'],
+  projects: ['Tell me about CodeCraft', 'Tell me about Paygate', 'Tell me about Roomz'],
+  codecraft: ['Tell me about Paygate', 'How does he use AI?', 'How can I contact him?'],
+  paygate: ['Tell me about Roomz', 'Security experience', 'How can I contact him?'],
+  roomz: ['Tell me about CodeCraft', "What's his stack?", 'How can I contact him?'],
+  ai: ['His development process', 'Tell me about CodeCraft', 'Healthcare work'],
+  education: ['Achievements', 'Certifications', 'How long has he been working?'],
+  achievements: ['How does he solve problems?', 'Education', 'What has he led?'],
+  contact: ['Can I get his résumé?', 'Where is he based?', 'Why should we hire him?'],
+};
+const nextFor = (e: KBEntry) => NEXT[e.k[0]] ?? ['What does he do at Predigle?', 'Tell me about his projects', 'How can I contact him?'];
+// the last topic answered, so "tell me more" has something to continue from
+let last: KBEntry | null = null;
+const MORE = / (more|tell me more|go on|continue|elaborate|details|and then|what else|explain) /;
+
 export function answer(q: string): Answer | null {
   const raw = RAW(q);
-  for (const it of INTENTS) if (it.re.test(raw)) return { a: it.a, src: '~/friday' };
+  if (last && MORE.test(raw) && toks(q).every(t => /^(more|tell|go|continue|elaborate|detail|details|then|else|explain|please)$/.test(t))) {
+    const follow = nextFor(last)[0];
+    const r = answer(follow);
+    return r && { ...r, a: `More on that: ${r.a}` };
+  }
+  for (const it of INTENTS) if (it.re.test(raw)) return { a: it.a, src: '~/friday', next: it.next };
   const qt = toks(q);
   if (!qt.length) return null;
 
@@ -106,8 +147,9 @@ export function answer(q: string): Answer | null {
   if (scored.length) {
     const [top, second] = scored;
     // two clearly different topics in one question ("stack and projects") → answer both
-    if (second && second.s >= top.s * .8 && second.s >= 1.2 && qt.length > 1) return { a: `${top.e.a}\n\n${second.e.a}`, src: `${top.e.src} + ${second.e.src}` };
-    return { a: top.e.a, src: top.e.src };
+    if (second && second.s >= top.s * .8 && second.s >= 1.2 && qt.length > 1) { last = top.e; return { a: `${top.e.a}\n\n${second.e.a}`, src: `${top.e.src} + ${second.e.src}`, next: nextFor(top.e) }; }
+    last = top.e;
+    return { a: top.e.a, src: top.e.src, next: nextFor(top.e) };
   }
 
   // fallback: search page text

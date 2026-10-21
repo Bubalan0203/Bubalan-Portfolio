@@ -62,7 +62,7 @@ export default function Header() {
         <a href="#top" className="hdr-logo" aria-label="Bubalan S — back to top">
           <Logo className="logo-mark" /><span className="logo-t">Bubalan S<small>{'// '}{PROFILE.title}</small></span>
         </a>
-        <div className="hdr-meta" aria-hidden="true">
+        <div className="hdr-meta">
           <span>{PROFILE.location}</span>
           <span><b className="ok">●</b> Open to projects</span>
           <span className="hdr-clock">{clock || '--:--'} IST</span>

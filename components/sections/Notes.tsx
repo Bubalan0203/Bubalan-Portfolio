@@ -38,7 +38,7 @@ function LeetCard() {
         <p className="lc-total"><b>{LC.solved}</b><span>solved</span></p>
         <ul>
           {LC.levels.map(l => (
-            <li key={l.k}><span style={{ color: l.c }}>{l.k}</span><em>{l.n}<small> / {l.of}</small></em>
+            <li key={l.k}><span className={`lc-lv lc-${l.k.toLowerCase()}`}>{l.k}</span><em>{l.n}<small> / {l.of}</small></em>
               <i><b style={{ width: `${((l.n / l.of) * 100).toFixed(1)}%`, background: l.c }} /></i></li>
           ))}
         </ul>

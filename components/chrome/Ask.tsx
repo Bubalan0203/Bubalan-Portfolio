@@ -13,6 +13,7 @@ export default function Ask() {
   const [shown, setShown] = useState('');
   const [src, setSrc] = useState<string | null>(null);
   const [streaming, setStreaming] = useState(false);
+  const [chips, setChips] = useState<string[]>(SUGG);
   const input = useRef<HTMLInputElement>(null);
   const box = useRef<HTMLDivElement>(null);
   const lastFocus = useRef<Element | null>(null);
@@ -47,7 +48,7 @@ export default function Ask() {
       i = reducedMotion() ? full.length : i + 1 + ((Math.random() * 4) | 0);
       setShown(full.slice(0, i));
       if (i < full.length) timer.current = window.setTimeout(step, 14);
-      else { setStreaming(false); setSrc(r ? r.src : null); }
+      else { setStreaming(false); setSrc(r ? r.src : null); setChips(r?.next?.length ? r.next : SUGG); }
     };
     step();
   };
@@ -63,7 +64,7 @@ export default function Ask() {
   };
 
   return (
-    <div className={`ask${open ? ' open' : ''}`} role="dialog" aria-modal="true" aria-labelledby="askLabel" onKeyDown={onKeyDown}>
+    <div className={`ask${open ? ' open' : ''}`} role="dialog" aria-modal="true" aria-labelledby="askLabel" aria-hidden={!open} inert={!open} onKeyDown={onKeyDown}>
       <div className="ask-backdrop" onClick={hide} />
       <div className="ask-box" ref={box}>
         <label className="ask-in">
@@ -80,7 +81,7 @@ export default function Ask() {
             {src && <span className="src">source: {src}</span>}
           </div>
           <div className="ask-sugg">
-            {SUGG.map(s => <button key={s} type="button" onClick={() => { setQ(s); stream(s); }}>{s}</button>)}
+            {chips.map(s => <button key={s} type="button" onClick={() => { setQ(s); stream(s); }}>{s}</button>)}
           </div>
         </div>
         <div className="ask-foot"><span>F.R.I.D.A.Y. · local knowledge base, matched on-device</span><span>↵ ask · esc close</span></div>

@@ -126,7 +126,7 @@ function NowConsole() {
 
       <div className="nc-bento">
         {STORIES.map((s, i) => (
-          <article key={s.id} className={`nc-mod${i === open ? ' open' : ''}`} onClick={() => pick(i)} onKeyDown={e => { if (e.key === 'Enter') pick(i); }} tabIndex={0}>
+          <article key={s.id} className={`nc-mod${i === open ? ' open' : ''}`} onClick={() => pick(i)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(i); } }} tabIndex={0} role="button" aria-expanded={i === open}>
             <header><span>{String(i + 1).padStart(2, '0')} · {s.tag}</span>{i === open && !paused && <em className="nc-timer" key={open} />}</header>
             <h3>{i === open ? s.title : s.short}</h3>
             {i === open && (
