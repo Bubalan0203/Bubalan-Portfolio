@@ -4,6 +4,9 @@ import { PROFILE } from '@/lib/content';
 import { gsap, useGSAP, MOTION_OK } from '@/lib/motion';
 import { useClock } from '@/components/chrome/Header';
 
+// opens a Gmail compose window addressed to me, so the click always leads somewhere even without a mail app
+const GMAIL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.email)}&su=${encodeURIComponent('Hello Bubalan')}`;
+
 export default function Contact() {
   const root = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
@@ -31,12 +34,12 @@ export default function Contact() {
         <span className="cta-line"><span><em>what&rsquo;s next.</em></span></span>
       </h2>
       <div className="contact-row">
-        <a className="mail" href={`mailto:${PROFILE.email}`}>{PROFILE.email}<span aria-hidden="true">↗</span></a>
+        <a className="mail" href={GMAIL} target="_blank" rel="noopener noreferrer">{PROFILE.email}<span aria-hidden="true">↗</span></a>
         <button type="button" className="btn btn-line" onClick={copy} aria-live="polite">{copied ? 'Copied ✓' : 'Copy email'}</button>
       </div>
       <footer className="foot">
         <ul>{PROFILE.links.map(l => <li key={l.label}><a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a></li>)}</ul>
-        <p>{PROFILE.location} · {clock || '--:--:--'} IST</p>
+        <p style={{ whiteSpace: 'nowrap' }}>{PROFILE.location} · {clock || '--:--'} IST</p>
         <p>© 2026 {PROFILE.name}</p>
         <a href="#top" className="totop">Back to top ↑</a>
       </footer>

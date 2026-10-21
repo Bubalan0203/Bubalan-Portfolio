@@ -3,8 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { answer } from '@/lib/kb';
 import { ASK_EVENT, getLenis, reducedMotion } from '@/lib/motion';
 
-const SUGG = ['What do you do at Predigle?', "What's your stack?", 'Tell me about CodeCraft', 'How do you use AI?', 'What have you led?', 'How can I contact you?'];
-const MISS = "I couldn't match that to anything on this page. Try asking about my work at Predigle, my stack, projects, education or how to reach me.";
+const SUGG = ['What does he do at Predigle?', 'Healthcare work', "What's his stack?", 'Tell me about CodeCraft', 'Why should we hire him?', 'How can I contact him?'];
+const MISS = "I don't have that one yet. I know Bubalan's work at Predigle, his healthcare projects, tech stack, side projects, education and contact details, so try one of those below.";
 
 /** ⌘K "Ask about me": streams answers matched offline from page content. */
 export default function Ask() {
@@ -77,7 +77,7 @@ export default function Ask() {
           <div className="ask-ans" aria-live="polite">
             {shown}
             {streaming && <span style={{ display: 'inline-block', width: '.55em', height: '1.05em', verticalAlign: '-.15em', background: 'var(--accent)', marginLeft: 2 }} />}
-            {src && <span className="src">source: {src} · matched offline</span>}
+            {src && <span className="src">source: {src}</span>}
           </div>
           <div className="ask-sugg">
             {SUGG.map(s => <button key={s} type="button" onClick={() => { setQ(s); stream(s); }}>{s}</button>)}

@@ -35,7 +35,7 @@ export const HERO_TERM: TermLine[] = [
   { out: [['a1f3c02 ', 'a'], ['2024 tia it wing — react component library, ui cycles −35%', '']] },
   { out: [['7a3e91f ', 'a'], ['2024 promoted to full-time · led a 4-dev team', '']] },
   { out: [['c41e0b8 ', 'a'], ['2024 create digital — 5+ client websites shipped', '']] },
-  { out: [['HEAD    ', 'g'], ['2025 predigle — dashboards, apis, auth, zero-downtime deploys', '']] },
+  { out: [['HEAD    ', 'g'], ['2026 predigle — healthcare apps · role flows · document ai · hipaa', '']] },
   { cmd: 'cat now.txt' },
   { out: [['building products end to end: data model → api → interface → release.', 'c']] },
 ];
@@ -53,12 +53,11 @@ export const AI_TERM: TermLine[] = [
 ];
 
 export const ABOUT_TEXT =
-  "I'm Bubalan, a product engineer finishing an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology. I like owning a feature the whole way: shaping the data, writing the API, building the screen and shipping it without taking anything down. Today I do that at Predigle, on dashboards, services and access control for enterprise workflows. Before that I led a four-person team through four deployments, and built client websites on the side.";
+  "I'm Bubalan, a product engineer finishing an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology. I like owning a feature the whole way: shaping the data, writing the API, building the screen and shipping it without taking anything down. Today I do that at Predigle, on healthcare applications: role-based clinic flows, document extraction and HIPAA-compliant features end to end. Before that I led a four-person team through four deployments, and built client websites at Create Digital Solution.";
 
 export const ABOUT_FACTS = [
   { big: '450+', small: 'DSA problems solved (LeetCode + GFG)' },
   { big: 'Top 6', small: 'of 45+ teams · SensAI Hackathon' },
-  { big: '10+', small: 'freelance projects, 5★, zero extensions' },
 ];
 
 export const CERTS = ['Web Developer Bootcamp — Udemy', 'Developing Front-End Apps with React — Coursera'];
@@ -69,26 +68,32 @@ export const TIMELINE = [
   { date: 'Next', placeholder: '[ADD: promotion / title change, if any]' },
 ];
 
-export type Story = { id: string; tag: string; short: string; title: string; problem: string; did: string; role: string; scene: 'flow' | 'sync' | 'access'; sceneLabel: string };
+export type Story = { id: string; tag: string; short: string; title: string; problem: string; did: string; role: string; scene: 'flow' | 'sync' | 'access' | 'shield'; sceneLabel: string };
 
 export const STORIES: Story[] = [
   {
-    id: 'story-1', tag: 'interface', short: 'Dashboards teams act on', title: 'Dashboards teams can act on',
-    problem: 'Enterprise teams run their day through workflow screens. When each view is built on its own, new screens are slow to ship and never quite consistent.',
-    did: 'Built dashboards in AngularJS and React from reusable components, so new workflow views are assembled from shared pieces instead of written from scratch.',
-    role: 'Core contributor', scene: 'flow', sceneLabel: 'illustrative · item moving through workflow stages',
+    id: 'story-1', tag: 'roles & flows', short: 'Role-based clinic flows', title: 'Role-based flows for a whole clinic',
+    problem: 'A hospital or clinic runs on many roles at once: doctors, front desk, office staff and admins. Each one needs its own screens and permissions inside the same healthcare application.',
+    did: 'Built role-based flows across many features of healthcare assist applications, so every role, from doctor to front desk, works through the steps meant for it and the clinic can manage every product in one place.',
+    role: 'Product engineer', scene: 'sync', sceneLabel: 'illustrative · one application, many clinic roles',
   },
   {
-    id: 'story-2', tag: 'services', short: 'APIs that hold up', title: 'APIs that hold up under real use',
-    problem: 'A dashboard is only as good as the services behind it. Slow or fragile endpoints make every screen feel broken, however good the interface is.',
-    did: 'Developed REST APIs in Django and Node.js, improving the performance and reliability of the services the interfaces depend on.',
-    role: 'Core contributor', scene: 'sync', sceneLabel: 'illustrative · interface and service staying in sync',
+    id: 'story-2', tag: 'ai · documents', short: 'Document extraction agent', title: 'Extracting healthcare documents accurately',
+    problem: 'Healthcare data arrives in documents. Every field has to land under the right key, because a wrong value in a patient record is not a small bug.',
+    did: 'Worked on a document extraction agent for healthcare applications that pulls document data into the right keys, with high validation and confidence checks before anything is saved.',
+    role: 'Product engineer', scene: 'flow', sceneLabel: 'illustrative · document moving through extraction',
   },
   {
-    id: 'story-3', tag: 'access & release', short: 'Secure access, quiet releases', title: 'Secure access, releases nobody notices',
-    problem: 'Enterprise users should only see what their role allows, and a release should never interrupt someone in the middle of their work.',
-    did: 'Implemented secure authentication and role-based access, and shipped production releases with zero-downtime deployments.',
-    role: 'Core contributor', scene: 'access', sceneLabel: 'illustrative · masked sign-in, role check, traffic switch',
+    id: 'story-3', tag: 'full stack', short: 'Features end to end', title: 'Healthcare features, end to end',
+    problem: 'Each healthcare use case cuts through every layer: a new screen, the API behind it and the data it reads and writes.',
+    did: 'Worked across the front end and back end, taking many healthcare use cases from requirement to a complete end-to-end flow in production.',
+    role: 'Product engineer', scene: 'access', sceneLabel: 'illustrative · interface, service and data',
+  },
+  {
+    id: 'story-4', tag: 'compliance', short: 'HIPAA & PHI by default', title: 'Built for HIPAA and PHI from day one',
+    problem: 'Healthcare assist applications hold protected health information. One careless log line or open endpoint is a compliance breach, not just a bug.',
+    did: 'Worked closely on healthcare assist applications under HIPAA compliance and PHI handling rules, so patient data stays protected in every feature I ship.',
+    role: 'Product engineer', scene: 'shield', sceneLabel: 'illustrative · patient data guarded by rules',
   },
 ];
 
@@ -130,7 +135,7 @@ export const EARLIER: Commit[] = [
     ],
   },
   {
-    hash: 'c41e0b8', ref: '(freelance)', company: 'Create Digital Solution', meta: 'Full Stack Developer (Part-Time) · Dec 2024 – May 2025',
+    hash: 'c41e0b8', ref: '(part-time)', company: 'Create Digital Solution', meta: 'Full Stack Developer (Part-Time) · Dec 2024 – May 2025',
     summary: 'Client websites, taken from brand brief to a fast, mobile-friendly launch.',
     bullets: [
       { problem: 'Clients needed on-brand sites that met real requirements', did: 'built 5+ responsive websites in React and Bootstrap', role: 'developer' },
@@ -186,22 +191,22 @@ export const PROJECTS: Project[] = [
     tags: ['React', 'OpenAI', 'Firebase', 'Razorpay'],
   },
   {
-    kind: '02 · cross-platform', badge: 'client brief', name: 'Roomz', sub: 'Room booking system', vis: 'roomz',
-    bullets: [
-      'One booking system had to run everywhere → built it for web, mobile and desktop from one codebase family.',
-      'The client needed real operations → room management, bookings and live active-room tracking, all to spec.',
-      'Owners needed oversight → a management interface for rooms, bookings, payments and analytics.',
-    ],
-    tags: ['React.js', 'React Native', 'Electron.js', 'Firebase'],
-  },
-  {
-    kind: '03 · fintech prototype', badge: 'security-first', name: 'Paygate', sub: 'Secure payment gateway (prototype)', vis: 'paygate',
+    kind: '02 · fintech prototype', badge: 'security-first', name: 'Paygate', sub: 'Secure payment gateway (prototype)', vis: 'paygate',
     bullets: [
       'Customers, merchants and banks need a trusted middle → prototyped a gateway for secure transactions between all three.',
       'Onboarding, settlements and refunds need oversight → admin approval workflows backed by KYC verification.',
       'Payments must be authorised and private → multi-bank UPI with OTP authorisation and AES-256-GCM encrypted communication.',
     ],
     tags: ['MERN', 'JWT', 'AES-256-GCM'],
+  },
+  {
+    kind: '03 · cross-platform', badge: 'client brief', name: 'Roomz', sub: 'Room booking system', vis: 'roomz',
+    bullets: [
+      'One booking system had to run everywhere → built it for web, mobile and desktop from one codebase family.',
+      'The client needed real operations → room management, bookings and live active-room tracking, all to spec.',
+      'Owners needed oversight → a management interface for rooms, bookings, payments and analytics.',
+    ],
+    tags: ['React.js', 'React Native', 'Electron.js', 'Firebase'],
   },
 ];
 

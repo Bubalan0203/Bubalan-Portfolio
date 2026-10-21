@@ -3,30 +3,6 @@ import { useRef, useState } from 'react';
 import { useGSAP, revealBatch } from '@/lib/motion';
 import { Label } from './About';
 
-// lessons from the work itself; each one is a rule I now follow, with the checklist behind it
-const NOTES = [
-  {
-    tag: 'release', from: 'Predigle', title: 'Releases nobody notices',
-    gist: 'A deploy is done when users never felt it, not when the build is green.',
-    steps: ['Migrations stay backward compatible for one release', 'New version warms up behind a health check', 'Traffic switches over, the old one stays ready', 'Rollback is one command, rehearsed before it is needed'],
-  },
-  {
-    tag: 'access', from: 'Predigle · TIA', title: 'Permissions live on the server',
-    gist: 'Hiding a button is a UX choice. Blocking the request is the security.',
-    steps: ['Deny by default, allow by role', 'One permissions map shared by API and UI', 'Every endpoint checks the token, not the screen', 'Tests cover the role that should be refused'],
-  },
-  {
-    tag: 'ui', from: 'TIA IT Wing', title: 'Build the second screen, then the library',
-    gist: 'Components earn their place by repeating, not by being imagined up front.',
-    steps: ['Ship the first screen plainly', 'Extract on the second, when the pattern is real', 'Props over variants, composition over flags', 'Document with the screen it came from'],
-  },
-  {
-    tag: 'ai', from: 'CodeCraft', title: 'AI features people pay for',
-    gist: 'Generation is cheap to demo and expensive to run. Design for the bill.',
-    steps: ['Meter usage with credits from day one', 'Preview before you commit a generation', 'Keep prompts versioned like code', 'Fall back gracefully when the model is slow'],
-  },
-] as const;
-
 // LeetCode profile snapshot (Oct 2026)
 const LC = { user: 'Bubalan_Shanmuga_sundaram', url: 'https://leetcode.com/u/Bubalan_Shanmuga_sundaram/', solved: 292, levels: [
   { k: 'Easy', n: 118, of: 971, c: '#3fd18a' }, { k: 'Medium', n: 148, of: 2128, c: '#f5b544' }, { k: 'Hard', n: 26, of: 983, c: '#f0596b' },
@@ -70,10 +46,9 @@ function LeetCard() {
   );
 }
 
-/** Beyond the job: a LeetCode snapshot, the plan I solve problems with, and field notes: four rules learned on real releases. One opens at a time; the rest stay as spines you can pull out. */
+/** Beyond the job: a LeetCode snapshot and the plan I solve problems with. */
 export default function Notes() {
   const root = useRef<HTMLElement>(null);
-  const [open, setOpen] = useState(0);
   const [step, setStep] = useState(0);
   useGSAP(() => revealBatch(root.current!), { scope: root });
 
@@ -82,7 +57,7 @@ export default function Notes() {
       <Label n="07">Beyond the job</Label>
       <div className="nc-head">
         <h2 className="nc-title rv">How I <em>think through problems.</em></h2>
-        <p className="jh-intro rv">Daily problem solving keeps the fundamentals sharp. The same plan carries into product work, and the notes below are what real releases taught me.</p>
+        <p className="jh-intro rv">Daily problem solving keeps the fundamentals sharp. The same plan carries into product work.</p>
       </div>
 
       <div className="ps rv">
@@ -104,25 +79,6 @@ export default function Notes() {
         </div>
       </div>
 
-      <p className="ps-k fn-k rv">field notes · lessons I shipped my way into</p>
-
-      <div className="fn rv">
-        {NOTES.map((n, i) => (
-          <article key={n.title} className={`fn-card${open === i ? ' open' : ''}`} onPointerEnter={() => setOpen(i)}>
-            <button type="button" className="fn-spine" aria-expanded={open === i} onClick={() => setOpen(i)} onFocus={() => setOpen(i)}>
-              <span className="fn-n">{String(i + 1).padStart(2, '0')}</span>
-              <span className="fn-t">{n.title}</span>
-              <span className="fn-tag">#{n.tag}</span>
-            </button>
-            <div className="fn-body">
-              <p className="fn-from">learned at {n.from}</p>
-              <h3>{n.title}</h3>
-              <p className="fn-gist">{n.gist}</p>
-              <ol>{n.steps.map((s, k) => <li key={s}><span>{k + 1}</span>{s}</li>)}</ol>
-            </div>
-          </article>
-        ))}
-      </div>
     </section>
   );
 }

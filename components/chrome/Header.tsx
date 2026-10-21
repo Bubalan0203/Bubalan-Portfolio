@@ -16,8 +16,9 @@ const LINKS = [
 export function useClock() {
   const [t, setT] = useState('');
   useEffect(() => {
-    const f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    const tick = () => setT(f.format(new Date()));
+    const d = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', weekday: 'short', day: 'numeric', month: 'short' });
+    const f = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', hour12: true });
+    const tick = () => { const n = new Date(); setT(`${d.format(n)} · ${f.format(n)}`); };
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
@@ -61,8 +62,8 @@ export default function Header() {
         </a>
         <div className="hdr-meta" aria-hidden="true">
           <span>{PROFILE.location}</span>
-          <span><b className="ok">●</b> Open to work</span>
-          <span className="hdr-clock">{clock || '--:--:--'} IST</span>
+          <span><b className="ok">●</b> Open to projects</span>
+          <span className="hdr-clock">{clock || '--:--'} IST</span>
         </div>
         <div className="hdr-actions">
           <button type="button" className="chip" onClick={openAsk} aria-label="Ask about me (Command K)">
@@ -97,7 +98,7 @@ export default function Header() {
           <span className="friday-dot" /> Ask F.R.I.D.A.Y. about me <kbd>⌘K</kbd>
         </button>
         <div className="drawer-foot">
-          <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.email)}`} target="_blank" rel="noopener noreferrer">{PROFILE.email}</a>
           <div>{PROFILE.links.map(l => <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>)}</div>
         </div>
       </aside>

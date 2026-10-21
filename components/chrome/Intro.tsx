@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap, fireIntro, getLenis, reducedMotion } from '@/lib/motion';
+import { useClock } from './Header';
 
 // Read once per page load, so React's double-run of effects in dev doesn't count as a second visit.
 let seenCache: boolean | null = null;
@@ -73,6 +74,7 @@ export default function Intro() {
   const root = useRef<HTMLDivElement>(null);
   const mark = useRef<HTMLDivElement>(null);
   const ms = useRef<HTMLElement>(null);
+  const clock = useClock();
 
   useEffect(() => {
     const done = () => {
@@ -136,9 +138,9 @@ export default function Intro() {
     <div className="intro" ref={root} aria-hidden="true">
       <div className="intro-bg" />
       <div className="intro-corners">
-        <span className="ic tl">bubalan.dev<br /><em>portfolio · v3</em></span>
-        <span className="ic tr">Coimbatore, IN<br /><em>UTC +05:30</em></span>
-        <span className="ic bl">stack<br /><em>react · node · django</em></span>
+        <span className="ic tl">Bubalan S<br /><em>product engineer</em></span>
+        <span className="ic tr">Coimbatore, IN<br /><em>{clock || '--:--'} IST</em></span>
+        <span className="ic bl">status<br /><em>open to projects</em></span>
         <span className="ic br">build<br /><em ref={ms}>0 ms</em></span>
       </div>
       <svg className="itr" viewBox="0 0 1440 900" width="1440" height="900">

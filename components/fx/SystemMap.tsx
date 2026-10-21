@@ -78,8 +78,9 @@ export default function SystemMap() {
         <path id="sm-loop" className="sm-link loop" d={LOOP} />
         <path id="sm-fix1" className="sm-link fix" d={FIX_CLAUDE} />
         <text className="sm-loop-t" x="640" y="30" textAnchor="middle">↩ every diff read by me</text>
+        <rect className="sm-fix-b" x="2" y="286" width="76" height="34" rx="8" />
         <text className="sm-fix-t" x="40" y="300" textAnchor="middle">changes</text>
-        <text className="sm-fix-t" x="40" y="314" textAnchor="middle">requested</text>
+        <text className="sm-fix-t" x="40" y="313" textAnchor="middle">requested</text>
 
         {LINKS.map(([, , kind, delay], i) => (
           <circle key={i} className={`sm-pulse ${kind}`} r="3.4">

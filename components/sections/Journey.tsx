@@ -6,10 +6,15 @@ import { Label } from './About';
 
 /* ---------- HEAD: where I am now ---------- */
 
-const VERSIONS = [
-  { v: 'v1', title: 'Software Developer Intern', when: 'Dec 2025 — May 2026' },
-  { v: 'v2', title: 'Associate Product Engineer', when: 'May 2026 — now', now: true },
-];
+const INTERN = {
+  title: 'Software Developer Intern', dates: 'Dec 2025 — May 2026',
+  bullets: [
+    'Built dashboards in AngularJS and React from reusable components, so new workflow views are assembled from shared pieces',
+    'Developed REST APIs in Django and Node.js, improving the performance and reliability of the services behind the screens',
+    'Implemented secure authentication and role-based access, so users only see what their role allows',
+    'Shipped production releases with zero-downtime deployments',
+  ],
+};
 
 /**
  * One company = one sticky card. The wrapper is taller than the screen; as you scroll through it,
@@ -60,34 +65,45 @@ function Scene({ kind }: { kind: Story['scene'] }) {
   if (kind === 'flow') {
     return (
       <div className="sc sc-flow" aria-hidden="true">
-        {['request', 'validate', 'review', 'approve', 'done'].map((s, i) => <span key={s} style={{ animationDelay: `${i * .7}s` }}>{s}</span>)}
+        {['document', 'extract', 'map to keys', 'validate', 'save'].map((s, i) => <span key={s} style={{ animationDelay: `${i * .7}s` }}>{s}</span>)}
       </div>
     );
   }
   if (kind === 'sync') {
     return (
       <div className="sc sc-sync" aria-hidden="true">
-        <span className="sc-box">Dashboard<small>interface</small></span>
+        <span className="sc-box">Doctor<small>consults · notes</small></span>
         <span className="sc-wire"><i /><i /></span>
-        <span className="sc-box hot">REST API<small>Django · Node</small></span>
+        <span className="sc-box hot">Healthcare app<small>role-based flows</small></span>
         <span className="sc-wire"><i /><i /></span>
-        <span className="sc-box">Database<small>source of truth</small></span>
+        <span className="sc-box">Front desk<small>visits · office</small></span>
+      </div>
+    );
+  }
+  if (kind === 'shield') {
+    return (
+      <div className="sc sc-access" aria-hidden="true">
+        <span className="sc-box">PHI<small>patient data</small></span>
+        <span className="sc-arrow">→</span>
+        <span className="sc-box hot">HIPAA rules<small>access · audit · encryption</small></span>
+        <span className="sc-arrow">→</span>
+        <span className="sc-box">feature<small>shipped compliant</small></span>
       </div>
     );
   }
   return (
     <div className="sc sc-access" aria-hidden="true">
-      <span className="sc-box">sign in<small>••••••••</small></span>
+      <span className="sc-box">front end<small>React · Angular</small></span>
       <span className="sc-arrow">→</span>
-      <span className="sc-box hot">role check<small>admin · staff · viewer</small></span>
+      <span className="sc-box hot">back end<small>APIs · services</small></span>
       <span className="sc-arrow">→</span>
-      <span className="sc-box">release<small>v2 live · 0 downtime</small></span>
+      <span className="sc-box">database<small>patient records</small></span>
     </div>
   );
 }
 
 /** A live "console" for the current job: version switcher for the two roles and a bento of problem modules. */
-function NowConsole({ ver, setVer }: { ver: number; setVer: (i: number) => void }) {
+function NowConsole() {
   const [open, setOpen] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -99,43 +115,32 @@ function NowConsole({ ver, setVer }: { ver: number; setVer: (i: number) => void 
   }, [paused]);
 
   const pick = (i: number) => { setOpen(i); setPaused(true); };
-  const cur = VERSIONS[ver];
 
   return (
     <div className="nc rv">
       <div className="nc-bar">
         <span className="nc-app"><i /> predigle · production</span>
-        <div className="nc-vers" role="tablist" aria-label="My roles at Predigle">
-          {VERSIONS.map((r, i) => (
-            <button key={r.v} type="button" role="tab" aria-selected={i === ver} className={`nc-ver${i === ver ? ' on' : ''}`} onClick={() => setVer(i)}>
-              <b>{r.v}</b>{r.title}
-            </button>
-          ))}
-        </div>
+        <span className="nc-ver on"><b>now</b>Associate Product Engineer</span>
       </div>
-      <p className="nc-role"><span>{cur.when}</span>{cur.now ? 'current role' : 'where I started at Predigle'}</p>
+      <p className="nc-role"><span>May 2026 — now</span>current role</p>
 
-      {cur.now ? (
-        <div className="nc-bento">
-          {STORIES.map((s, i) => (
-            <article key={s.id} className={`nc-mod${i === open ? ' open' : ''}`} onClick={() => pick(i)} onKeyDown={e => { if (e.key === 'Enter') pick(i); }} tabIndex={0}>
-              <header><span>{String(i + 1).padStart(2, '0')} · {s.tag}</span>{i === open && !paused && <em className="nc-timer" key={open} />}</header>
-              <h3>{i === open ? s.title : s.short}</h3>
-              {i === open && (
-                <div className="nc-detail">
-                  <Scene kind={s.scene} />
-                  <div className="pb-cols">
-                    <div><p className="pb-h">The problem</p><p>{s.problem}</p></div>
-                    <div><p className="pb-h">What I did · {s.role.toLowerCase()}</p><p className="pb-did">{s.did}</p></div>
-                  </div>
+      <div className="nc-bento">
+        {STORIES.map((s, i) => (
+          <article key={s.id} className={`nc-mod${i === open ? ' open' : ''}`} onClick={() => pick(i)} onKeyDown={e => { if (e.key === 'Enter') pick(i); }} tabIndex={0}>
+            <header><span>{String(i + 1).padStart(2, '0')} · {s.tag}</span>{i === open && !paused && <em className="nc-timer" key={open} />}</header>
+            <h3>{i === open ? s.title : s.short}</h3>
+            {i === open && (
+              <div className="nc-detail">
+                <Scene kind={s.scene} />
+                <div className="pb-cols">
+                  <div><p className="pb-h">The problem</p><p>{s.problem}</p></div>
+                  <div><p className="pb-h">What I did · {s.role.toLowerCase()}</p><p className="pb-did">{s.did}</p></div>
                 </div>
-              )}
-            </article>
-          ))}
-        </div>
-      ) : (
-        <p className="jcard-pending">Details for my intern period are on the way.</p>
-      )}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
@@ -146,8 +151,8 @@ function EarlierWork() {
   const tia = EARLIER.find(e => e.company === 'TIA IT Wing')!;
   const cds = EARLIER.find(e => e.company.startsWith('Create'))!;
   const companies = [
-    { org: tia.company, when: 'Feb 2024 — Nov 2024', sum: tia.summary, roles: [...tia.roles!].reverse().map(r => ({ title: r.title, dates: r.dates, bullets: r.bullets })) },
     { org: cds.company, when: 'Dec 2024 — May 2025', sum: cds.summary, roles: [{ title: 'Full Stack Developer · Part-Time', dates: 'Dec 2024 – May 2025', bullets: cds.bullets! }] },
+    ...tia.roles!.map(r => ({ org: tia.company, when: r.dates.replace('–', '—'), sum: tia.summary, roles: [{ title: r.title, dates: r.dates, bullets: r.bullets }] })),
   ];
 
   return (
@@ -155,10 +160,10 @@ function EarlierWork() {
       <Label n="02">earlier work · Feb 2024 — May 2025</Label>
       <div className="nc-head">
         <h2 className="nc-title rv">Where the <em>foundation</em> was built.</h2>
-        <p className="jh-intro rv">Two teams before Predigle. Where I held more than one role, keep scrolling — the card moves through them in order.</p>
+        <p className="jh-intro rv">Two teams before Predigle, latest first: Create Digital Solution, then TIA IT Wing full-time and part-time.</p>
       </div>
       {companies.map(c => (
-        <RoleScroller key={c.org} steps={c.roles.length}>
+        <RoleScroller key={c.roles[0].title} steps={c.roles.length}>
           {(i, go) => {
             const r = c.roles[i];
             return (
@@ -200,9 +205,20 @@ export default function Journey() {
       <Label n="02">work.log — HEAD → predigle</Label>
       <div className="nc-head">
         <h2 className="nc-title rv">Now shipping at <em>Predigle.</em></h2>
-        <p className="jh-intro rv">Software for enterprise teams. The products belong to the company, so below are the problems I work on and my part in each.</p>
+        <p className="jh-intro rv">Healthcare applications for clinics and hospitals. The products belong to the company, so below are the problems I work on and my part in each.</p>
       </div>
-      <RoleScroller steps={VERSIONS.length}>{(i, go) => <NowConsole ver={i} setVer={go} />}</RoleScroller>
+      <NowConsole />
+
+      <article className="co rv">
+        <header className="co-head">
+          <div><h3>Predigle · where I started</h3><p className="gl-sum">Dashboards, APIs, access and releases, then moved into the full-time Associate Product Engineer role in May 2026.</p></div>
+          <span className="co-when">{INTERN.dates}</span>
+        </header>
+        <div className="co-role">
+          <p className="co-rt"><b>{INTERN.title}</b><span>{INTERN.dates}</span></p>
+          <ul>{INTERN.bullets.map(b => <li key={b}>{b}.</li>)}</ul>
+        </div>
+      </article>
 
       {/* history */}
       <EarlierWork />

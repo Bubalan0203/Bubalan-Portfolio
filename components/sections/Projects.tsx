@@ -20,13 +20,18 @@ function Visual({ v }: { v: Project['vis'] }) {
   );
   return (
     <div className="vis vis-pg" aria-hidden="true">
-      <span className="node">Customer</span>
+      <span className="node"><Ico d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" />Customer</span>
       <span className="wire" />
-      <span className="node core">🔒 Gateway</span>
+      <span className="node core"><Ico d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Zm-2.5 9h5v4h-5v-4Zm1-0v-1.5a1.5 1.5 0 0 1 3 0V12" />Gateway</span>
       <span className="wire" />
-      <span className="node">Bank</span>
+      <span className="node"><Ico d="M3 10h18L12 4 3 10Zm2 0v8m4.7-8v8m4.6-8v8M19 10v8M3 20h18" />Bank</span>
     </div>
   );
+}
+
+/** Stroke icon for the gateway diagram. */
+function Ico({ d }: { d: string }) {
+  return <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>;
 }
 
 /** Pinned horizontal gallery on wide screens; a plain stack on phones. */
