@@ -23,7 +23,7 @@
 :root[data-theme="light"]{
   --bg:#F3F6F9; --bg-2:#E8EEF3;
   --surface:rgba(255,255,255,.66); --surface-2:rgba(255,255,255,.85);
-  --ink:#0A1A26; --ink-2:#4A5F6E; --ink-3:#7E909D;
+  --ink:#0A1A26; --ink-2:#3E5363; --ink-3:#5E7180;
   --line:rgba(10,60,90,.14); --line-2:rgba(10,60,90,.07);
   --accent:#0270C4; --accent-2:#3346D3; --accent-soft:rgba(2,112,196,.11); --on-accent:#FFFFFF;
   --ok:#0C9A62;
@@ -449,7 +449,6 @@ html.rm .friday li{visibility:visible}
 .jrole-up{margin:0;padding:5px 0 5px 16px;font-family:var(--f-mono);font-size:11px;color:var(--ok);border-left:1px dashed color-mix(in srgb,var(--ok) 50%,transparent);margin-left:14px}
 .jcard-pane{animation:logIn .45s var(--ease)}
 .jcard-pane-t{margin:0 0 12px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;color:var(--accent)}
-.jcard-pending{margin:0;padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--ink-3);font-size:14px}
 .jcard-list{list-style:none;padding:0;margin:0;display:grid}
 .jcard-list li{display:grid;gap:2px;padding:10px 0 10px 16px;border-top:1px solid var(--line-2);position:relative}
 .jcard-list li:first-child{border-top:0;padding-top:0}
@@ -704,14 +703,12 @@ html.rm .friday li{visibility:visible}
 .nc-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line-2)}
 .nc-app{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2)}
 .nc-app i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:blink 1.6s ease-in-out infinite}
-.nc-vers{display:flex;gap:4px;padding:4px;border-radius:12px;background:color-mix(in srgb,var(--bg) 70%,transparent);border:1px solid var(--line-2)}
 .nc-ver{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:9px;border:0;background:none;color:var(--ink-3);font:inherit;font-size:13px;cursor:pointer;transition:background .3s,color .3s}
 .nc-ver b{font-family:var(--f-mono);font-weight:400;font-size:11px;padding:1px 6px;border-radius:5px;border:1px solid var(--line-2)}
 .nc-ver.on{background:var(--accent-soft);color:var(--ink)}
 .nc-ver.on b{border-color:var(--accent);color:var(--accent)}
 .nc-role{display:flex;gap:12px;margin:0;padding:12px 18px 0;font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
 .nc-role span{color:var(--accent)}
-.nc .jcard-pending{margin:16px 18px 18px}
 .nc-bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px 18px 18px}
 .nc-mod{position:relative;padding:18px;border-radius:16px;border:1px solid var(--line-2);background:color-mix(in srgb,var(--bg) 55%,transparent);cursor:pointer;transition:border-color .3s,background .3s;outline:none}
 .nc-mod:hover,.nc-mod:focus-visible{border-color:var(--line)}
@@ -963,3 +960,5 @@ html.rm .friday li{visibility:visible}
 .ps-detail code{display:inline-block;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.04);font-family:var(--f-mono);font-size:12.5px;color:var(--accent)}
 @media (max-width:900px){.ps{grid-template-columns:1fr}.ps-steps{grid-template-columns:1fr 1fr}}
 @media (max-width:420px){.lc-main{grid-template-columns:1fr}.lc-total{width:100%;top:65px}.lc-ring{margin:0 auto}}
+
+.lc-asof{margin:6px 0 0;font-family:var(--f-mono);font-size:11px;color:var(--ink-3)}

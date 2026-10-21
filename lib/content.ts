@@ -6,6 +6,7 @@ export const PROFILE = {
   company: 'Predigle',
   location: 'Coimbatore, IN',
   email: 'bubalan28@gmail.com',
+  resume: '/Bubalan_S_Resume.pdf',
   pitchStrong: 'I build products end to end',
   pitchRest: ' — the data model, the API, the interface and the release that ships it.',
   links: [
@@ -16,57 +17,12 @@ export const PROFILE = {
   ],
 };
 
-export const NAV = ['about', 'work', 'stack', 'agents', 'projects', 'contact'] as const;
-
-export const ROLES = [
-  'Product engineer',
-  'Dashboards in React & Angular',
-  'REST APIs in Django & Node',
-  'Auth, roles & zero-downtime releases',
-  'Component libraries that last',
-];
-
-export type TermLine = { cmd: string } | { out: [string, string][]; wait?: number };
-
-export const HERO_TERM: TermLine[] = [
-  { cmd: 'whoami' },
-  { out: [['bubalan s', 'c'], [' — product engineer @ predigle', 'd']] },
-  { cmd: 'git log --oneline --reverse' },
-  { out: [['a1f3c02 ', 'a'], ['2024 tia it wing — react component library, ui cycles −35%', '']] },
-  { out: [['7a3e91f ', 'a'], ['2024 promoted to full-time · led a 4-dev team', '']] },
-  { out: [['c41e0b8 ', 'a'], ['2024 create digital — 5+ client websites shipped', '']] },
-  { out: [['HEAD    ', 'g'], ['2026 predigle — healthcare apps · role flows · document ai · hipaa', '']] },
-  { cmd: 'cat now.txt' },
-  { out: [['building products end to end: data model → api → interface → release.', 'c']] },
-];
-
-export const AI_TERM: TermLine[] = [
-  { cmd: 'agent run --spec specs/table-filters.md' },
-  { out: [['◆ ', 'p'], ['reading spec · 3 acceptance criteria', '']] },
-  { out: [['◆ ', 'p'], ['orchestrator: split into 4 parallel tasks', '']] },
-  { out: [['  ├─ explore    ', 'a'], ['mapped 6 files, found the shared table', 'd']] },
-  { out: [['  ├─ implement  ', 'a'], ['role-aware filter chips + query params', 'd']] },
-  { out: [['  ├─ test       ', 'a'], ['12 cases · ', 'd'], ['12 passed', 'g']] },
-  { out: [['  └─ review     ', 'a'], ['1 note: debounce search input → fixed', 'd']] },
-  { out: [['◆ ', 'p'], ['opened PR "feat(table): role-aware filters"', 'c']] },
-  { out: [['→ waiting for human review', 'g']] },
-];
-
-export const ABOUT_TEXT =
-  "I'm Bubalan, a product engineer finishing an integrated M.Sc. in Software Systems at Coimbatore Institute of Technology. I like owning a feature the whole way: shaping the data, writing the API, building the screen and shipping it without taking anything down. Today I do that at Predigle, on healthcare applications: role-based clinic flows, document extraction and HIPAA-compliant features end to end. Before that I led a four-person team through four deployments, and built client websites at Create Digital Solution.";
-
 export const ABOUT_FACTS = [
-  { big: '450+', small: 'DSA problems solved (LeetCode + GFG)' },
+  { big: '450+', small: 'DSA problems solved across LeetCode and GeeksforGeeks' },
   { big: 'Top 6', small: 'of 45+ teams · SensAI Hackathon' },
 ];
 
 export const CERTS = ['Web Developer Bootcamp — Udemy', 'Developing Front-End Apps with React — Coursera'];
-
-export const TIMELINE = [
-  { date: 'Dec 2025', role: 'Product Engineer', sub: '', note: 'Joined to build across interface, services and deployment.' },
-  { date: 'Present', role: 'Dashboards · APIs · Auth & releases', note: 'The three problem areas below.' },
-  { date: 'Next', placeholder: '[ADD: promotion / title change, if any]' },
-];
 
 export type Story = { id: string; tag: string; short: string; title: string; problem: string; did: string; role: string; scene: 'flow' | 'sync' | 'access' | 'shield'; sceneLabel: string };
 
@@ -159,25 +115,6 @@ export const HOW = [
   { icon: 'shield', title: 'Verify everything', body: "Generated code gets the same bar as mine: it runs, it's tested, and I read the diff before it becomes a PR." },
 ] as const;
 
-export const STATS = [
-  { n: 60, suffix: '%', label: 'less manual form-processing time after streamlining workflows', src: 'TIA IT Wing' },
-  { n: 35, suffix: '%', label: 'shorter UI development cycles from a reusable component library', src: 'TIA IT Wing' },
-  { n: 5, suffix: '+', label: 'responsive client websites shipped', src: 'Create Digital Solution' },
-  { n: 4, suffix: '×', label: 'deployments managed while leading a 4-member dev team', src: 'TIA IT Wing · 8 months' },
-  { n: 450, suffix: '+', label: 'DSA problems solved', src: 'LeetCode + GFG' },
-  { n: 6, pre: '#', suffix: '/45+', label: 'top-6 finalist among 45+ teams', src: 'SensAI Hackathon' },
-];
-
-export const LAYERS = [
-  { key: 'problem', text: 'Problem — requirements, gathered & analysed' },
-  { key: 'data model', text: 'Data model — MongoDB & MySQL' },
-  { key: 'api', text: 'API — REST in Django, Node & Express' },
-  { key: 'integrations', text: 'Integrations — email, payments, auth services' },
-  { key: 'interface', text: 'Interface — React & Angular dashboards' },
-  { key: 'access', text: 'Access — JWT auth, role-based access' },
-  { key: 'release', text: 'Release — cloud deploys, zero downtime' },
-];
-
 export type Project = { kind: string; badge: string; name: string; sub: string; bullets: string[]; tags: string[]; vis: 'codecraft' | 'roomz' | 'paygate' };
 
 export const PROJECTS: Project[] = [
@@ -209,6 +146,3 @@ export const PROJECTS: Project[] = [
     tags: ['React.js', 'React Native', 'Electron.js', 'Firebase'],
   },
 ];
-
-export const TAPE_WORDS = ['Dashboards', 'REST APIs', 'Auth & roles', 'Zero-downtime releases', 'Component libraries'];
-export const TAPE_STACK = ['react', 'angularjs', 'node.js', 'express', 'django', 'python', 'mongodb', 'mysql', 'firebase', 'aws', 'git', 'postman', 'html', 'css', 'bootstrap', 'javascript'];

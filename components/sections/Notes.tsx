@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { useGSAP, revealBatch } from '@/lib/motion';
 import { Label } from './About';
 
-// LeetCode profile snapshot (Oct 2026)
+// LeetCode profile snapshot; the 450+ total elsewhere includes GeeksforGeeks
 const LC = { user: 'Bubalan_Shanmuga_sundaram', url: 'https://leetcode.com/u/Bubalan_Shanmuga_sundaram/', solved: 292, levels: [
   { k: 'Easy', n: 118, of: 971, c: '#3fd18a' }, { k: 'Medium', n: 148, of: 2128, c: '#f5b544' }, { k: 'Hard', n: 26, of: 983, c: '#f0596b' },
 ] };
@@ -29,6 +29,7 @@ function LeetCard() {
   return (
     <a className="lc" href={LC.url} target="_blank" rel="noopener noreferrer">
       <header><b>LeetCode</b><span>{LC.user}</span><em>↗</em></header>
+      <p className="lc-asof">LeetCode only · as of Oct 2026 · 450+ including GeeksforGeeks</p>
       <div className="lc-main">
         <svg viewBox="0 0 110 110" className="lc-ring" aria-hidden="true">
           <circle cx="55" cy="55" r={R} className="lc-ring-bg" />

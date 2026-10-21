@@ -8,14 +8,19 @@ import Background from '@/components/fx/Background';
 import Interactions from '@/components/fx/Interactions';
 import TypedHeadings from '@/components/fx/TypedHeadings';
 import './globals.css';
+import { SITE } from './site';
 
 const display = Sora({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
 const sans = Manrope({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE),
   title: 'Bubalan S — Associate Product Engineer',
-  description: 'Bubalan S — product engineer at Predigle. I build products end to end: the data model, the API, the interface and the release.',
+  description: 'Bubalan S, Associate Product Engineer at Predigle. Healthcare products built end to end: role-based clinic flows, document extraction and HIPAA-compliant features.',
+  alternates: { canonical: '/' },
+  openGraph: { type: 'website', title: 'Bubalan S — Associate Product Engineer', description: 'Healthcare products built end to end: role-based clinic flows, document extraction and HIPAA-compliant features.', siteName: 'Bubalan S' },
+  twitter: { card: 'summary_large_image', title: 'Bubalan S — Associate Product Engineer', description: 'Healthcare products built end to end at Predigle.' },
 };
 
 export const viewport: Viewport = { colorScheme: 'dark', themeColor: '#02060B' };

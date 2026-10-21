@@ -36,6 +36,8 @@ export default function Contact() {
       <div className="contact-row">
         <a className="mail" href={GMAIL} target="_blank" rel="noopener noreferrer">{PROFILE.email}<span aria-hidden="true">↗</span></a>
         <button type="button" className="btn btn-line" onClick={copy} aria-live="polite">{copied ? 'Copied ✓' : 'Copy email'}</button>
+        <a className="btn btn-line" href={PROFILE.resume} download>Résumé ↓</a>
+        <a className="btn btn-line" href={PROFILE.links[0].href} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
       </div>
       <footer className="foot">
         <ul>{PROFILE.links.map(l => <li key={l.label}><a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a></li>)}</ul>

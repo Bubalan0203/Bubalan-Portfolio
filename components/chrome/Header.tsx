@@ -6,10 +6,12 @@ import Logo from '@/components/brand/Logo';
 
 const LINKS = [
   { id: 'about', label: 'About', note: 'Who I am and how I work' },
-  { id: 'journey', label: 'Experience', note: 'Predigle, TIA, Create Digital, CIT' },
+  { id: 'journey', label: 'Experience', note: 'Predigle, Create Digital, TIA' },
+  { id: 'education', label: 'Education', note: 'M.Sc., achievements, certifications' },
   { id: 'toolkit', label: 'Toolkit', note: 'Interfaces, services, platform, AI' },
-  { id: 'projects', label: 'Projects', note: 'CodeCraft, Roomz, Paygate' },
+  { id: 'projects', label: 'Projects', note: 'CodeCraft, Paygate, Roomz' },
   { id: 'process', label: 'Process', note: 'How I build with AI agents' },
+  { id: 'notes', label: 'Beyond the job', note: 'LeetCode and how I solve problems' },
   { id: 'contact', label: 'Contact', note: 'Start a conversation' },
 ];
 
@@ -99,6 +101,7 @@ export default function Header() {
         </button>
         <div className="drawer-foot">
           <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.email)}`} target="_blank" rel="noopener noreferrer">{PROFILE.email}</a>
+          <a href={PROFILE.resume} download>Download résumé ↓</a>
           <div>{PROFILE.links.map(l => <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>)}</div>
         </div>
       </aside>

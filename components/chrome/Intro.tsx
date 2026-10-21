@@ -8,7 +8,7 @@ let seenCache: boolean | null = null;
 function repeatVisit() {
   if (seenCache === null) {
     seenCache = false;
-    try { seenCache = sessionStorage.getItem('booted') === '1'; sessionStorage.setItem('booted', '1'); } catch {}
+    try { seenCache = localStorage.getItem('booted') === '1'; localStorage.setItem('booted', '1'); } catch {}
   }
   return seenCache;
 }

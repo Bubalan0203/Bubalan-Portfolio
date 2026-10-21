@@ -157,7 +157,7 @@ function EarlierWork() {
 
   return (
     <div className="ew">
-      <Label n="02">earlier work · Feb 2024 — May 2025</Label>
+      <Label n="02.1">earlier work · Feb 2024 — May 2025</Label>
       <div className="nc-head">
         <h2 className="nc-title rv">Where the <em>foundation</em> was built.</h2>
         <p className="jh-intro rv">Two teams before Predigle, latest first: Create Digital Solution, then TIA IT Wing full-time and part-time.</p>
