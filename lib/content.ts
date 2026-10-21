@@ -13,7 +13,6 @@ export const PROFILE = {
     { label: 'linkedin', href: 'https://www.linkedin.com/in/bubalans' },
     { label: 'github', href: 'https://github.com/Bubalan0203' },
     { label: 'leetcode', href: 'https://leetcode.com/u/Bubalan_Shanmuga_sundaram/' },
-    { label: 'portfolio v1', href: 'https://bubalan.netlify.app/' },
   ],
 };
 
